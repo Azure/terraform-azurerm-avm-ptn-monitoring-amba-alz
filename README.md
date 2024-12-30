@@ -1,0 +1,1 @@
+# terraform-azurerm-avm-ptn-monitoring-amba-alz
