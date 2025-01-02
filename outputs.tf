@@ -1,6 +1,9 @@
-output "private_endpoints" {
-  description = <<DESCRIPTION
-  A map of the private endpoints created.
-  DESCRIPTION
-  value       = var.private_endpoints_manage_dns_zone_group ? azurerm_private_endpoint.this_managed_dns_zone_groups : azurerm_private_endpoint.this_unmanaged_dns_zone_groups
+output "resource_group_name" {
+  description = "The resource group name"
+  value       = module.amba-resourcegroup.name
+}
+
+output "user_assigned_managed_identity_name" {
+  description = "<the user assigned managed identity name"
+  value       = module.amba-uami.name
 }
