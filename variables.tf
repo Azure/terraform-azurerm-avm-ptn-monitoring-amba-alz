@@ -1,3 +1,9 @@
+variable "tenant_id" {
+  type        = string
+  description = "The tenant ID of the Azure Active Directory tenant."
+  nullable    = false
+}
+
 variable "location" {
   type        = string
   description = "Azure region where the resource should be deployed."

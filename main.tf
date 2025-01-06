@@ -45,9 +45,9 @@ module "role_assignments" {
 module "amba-alz" {
   source             = "Azure/avm-ptn-alz/azurerm"
   version            = "0.10.0"
-  architecture_name  = "custom"
+  architecture_name  = "amba"
   location           = var.location
-  parent_resource_id = data.azapi_client_config.current.tenant_id
+  parent_resource_id = var.tenant_id
   policy_default_values = {
     amba_alz_management_subscription_id          = jsonencode({ value = var.management_subscription_id })
     amba_alz_resource_group_location             = jsonencode({ value = var.location })
