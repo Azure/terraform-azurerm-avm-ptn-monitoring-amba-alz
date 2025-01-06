@@ -10,6 +10,12 @@ variable "location" {
   nullable    = false
 }
 
+variable "architecture_name" {
+  type        = string
+  description = "The name of the architecture."
+  default     = "amba"
+}
+
 variable "amba_root_management_group_display_name" {
   type        = string
   description = "The display name of the management group."

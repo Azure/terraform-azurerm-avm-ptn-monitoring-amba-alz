@@ -45,7 +45,7 @@ module "role_assignments" {
 module "amba-alz" {
   source             = "Azure/avm-ptn-alz/azurerm"
   version            = "0.10.0"
-  architecture_name  = "amba"
+  architecture_name  = var.architecture_name
   location           = var.location
   parent_resource_id = var.tenant_id
   policy_default_values = {
