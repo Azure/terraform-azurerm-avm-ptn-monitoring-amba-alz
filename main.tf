@@ -1,4 +1,4 @@
-module "amba-resourcegroup" {
+module "resource_group" {
   source   = "Azure/avm-res-resources-resourcegroup/azurerm"
   version  = "0.1.0"
   location = var.location
@@ -6,7 +6,7 @@ module "amba-resourcegroup" {
   tags     = var.tags
 }
 
-module "amba-uami" {
+module "user_assigned_managed_identity" {
   source              = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
   version             = "0.3.3"
   location            = var.location
@@ -39,10 +39,10 @@ module "role_assignments" {
       }
     }
   }
-  depends_on = [ module.amba-uami ]
+  depends_on = [ module.user_assigned_managed_identity ]
 }
 
-module "amba-alz" {
+module "amba" {
   source             = "Azure/avm-ptn-alz/azurerm"
   version            = "0.10.0"
   architecture_name  = var.architecture_name
