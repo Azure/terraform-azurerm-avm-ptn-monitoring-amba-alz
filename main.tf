@@ -7,6 +7,7 @@ module "resource_group" {
 }
 
 module "user_assigned_managed_identity" {
+  count               = var.bring_your_own_user_assigned_managed_identity ? 0 : 1
   source              = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
   version             = "0.3.3"
   location            = var.location
@@ -15,6 +16,7 @@ module "user_assigned_managed_identity" {
 }
 
 module "role_assignments" {
+  count   = var.bring_your_own_user_assigned_managed_identity ? 0 : 1
   source  = "Azure/avm-res-authorization-roleassignment/azurerm"
   version = "0.2.0"
 
