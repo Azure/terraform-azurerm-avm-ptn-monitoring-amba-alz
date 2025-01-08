@@ -4,6 +4,6 @@ output "resource_group_name" {
 }
 
 output "user_assigned_managed_identity_name" {
-  description = "<the user assigned managed identity name"
-  value       = module.user_assigned_managed_identity.resource_name
+  description = "The user assigned managed identity name"
+  value       = module.user_assigned_managed_identity[0].resource_name
 }
