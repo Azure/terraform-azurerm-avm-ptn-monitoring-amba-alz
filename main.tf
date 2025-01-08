@@ -11,7 +11,7 @@ module "user_assigned_managed_identity" {
   source              = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
   version             = "0.3.3"
   location            = var.location
-  resource_group_name = module.amba-resourcegroup.name
+  resource_group_name = module.resource_group.name
   name                = var.user_assigned_managed_identity_name
 }
 
@@ -21,7 +21,7 @@ module "role_assignments" {
   version = "0.2.0"
 
   user_assigned_managed_identities_by_client_id = {
-    mi1 = module.amba-uami.client_id
+    mi1 = module.user_assigned_managed_identity.client_id
   }
 
   role_definitions = {
@@ -78,7 +78,7 @@ resource "azurerm_management_lock" "this" {
 
   lock_level = var.lock.kind
   name       = coalesce(var.lock.name, "lock-${var.lock.kind}")
-  scope      = module.amba-resourcegroup.resource_id
+  scope      = module.resource_group.resource_id
   notes      = var.lock.kind == "CanNotDelete" ? "Cannot delete the resource or its child resources." : "Cannot delete or modify the resource or its child resources."
 }
 
@@ -86,7 +86,7 @@ resource "azurerm_role_assignment" "this" {
   for_each = var.role_assignments
 
   principal_id                           = each.value.principal_id
-  scope                                  = module.amba-resourcegroup.resource_id
+  scope                                  = module.resource_group.resource_id
   condition                              = each.value.condition
   condition_version                      = each.value.condition_version
   delegated_managed_identity_resource_id = each.value.delegated_managed_identity_resource_id
