@@ -190,6 +190,8 @@ DESCRIPTION
 # tflint-ignore: terraform_unused_declarations
 variable "tags" {
   type        = map(string)
-  default     = null
+  default     = {
+    _deployed_by_amba = "True"
+  }
   description = "(Optional) Tags of the resource."
 }
