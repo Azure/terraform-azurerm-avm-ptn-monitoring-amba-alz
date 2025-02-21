@@ -19,7 +19,7 @@ module "role_assignments" {
   version = "0.2.0"
 
   user_assigned_managed_identities_by_client_id = {
-    mi1 = module.user_assigned_managed_identity[0].client_id
+    mi1 = module.user_assigned_managed_identity.client_id
   }
 
   role_definitions = {
