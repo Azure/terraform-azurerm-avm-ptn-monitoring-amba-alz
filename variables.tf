@@ -1,19 +1,7 @@
-variable "tenant_id" {
-  type        = string
-  description = "The tenant ID of the Azure Active Directory tenant."
-  nullable    = false
-}
-
 variable "location" {
   type        = string
   description = "Azure region where the resource should be deployed."
   nullable    = false
-}
-
-variable "architecture_name" {
-  type        = string
-  default     = "amba"
-  description = "The name of the architecture."
 }
 
 variable "amba_root_management_group_display_name" {
@@ -41,90 +29,6 @@ variable "user_assigned_managed_identity_name" {
     condition     = can(regex("^[a-zA-Z0-9][a-zA-Z0-9_-]{1,126}[a-zA-Z0-9]$", var.user_assigned_managed_identity_name))
     error_message = "The resource name must start with a letter or number, have a length between 3 and 128 characters and can only contain a combination of alphanumeric characters, hyphens and underscores."
   }
-}
-
-variable "bring_your_own_user_assigned_managed_identity" {
-  type        = bool
-  default     = false
-  description = "Flag to indicate if the user-assigned managed identity is provided by the user."
-}
-
-variable "bring_your_own_user_assigned_managed_identity_resource_id" {
-  type        = string
-  default     = ""
-  description = "The resource ID of the user-assigned managed identity."
-}
-
-variable "action_group_email" {
-  type        = list(string)
-  default     = []
-  description = "The email address(es) in the action group for alert notifications."
-}
-
-variable "action_group_arm_role_id" {
-  type        = list(string)
-  default     = []
-  description = "The ARM role id(s) in the action group for alert notifications."
-}
-
-variable "logic_app_resource_id" {
-  type        = string
-  default     = ""
-  description = "The resource ID of the logic app."
-}
-
-variable "logic_app_callback_url" {
-  type        = string
-  default     = ""
-  description = "The callback URL of the logic app."
-}
-
-variable "event_hub_resource_id" {
-  type        = list(string)
-  default     = []
-  description = "The resource ID of the event hub."
-}
-
-variable "webhook_service_uri" {
-  type        = list(string)
-  default     = []
-  description = "The service URI of the webhook."
-}
-
-variable "function_resource_id" {
-  type        = string
-  default     = ""
-  description = "The resource ID of the Azure function."
-}
-
-variable "function_trigger_uri" {
-  type        = string
-  default     = ""
-  description = "The trigger URI of the Azure function."
-}
-
-variable "bring_your_own_alert_processing_rule_resource_id" {
-  type        = string
-  default     = ""
-  description = "The resource id of the alert processing rule, required if you intend to use an existing alert processing rule for monitoring purposes."
-}
-
-variable "bring_your_own_action_group_resource_id" {
-  type        = list(string)
-  default     = []
-  description = "The resource id of the action group, required if you intend to use an existing action group for monitoring purposes."
-}
-
-variable "amba_disable_tag_name" {
-  type        = string
-  default     = "MonitorDisable"
-  description = "Tag name used to disable monitoring at the resource level."
-}
-
-variable "amba_disable_tag_values" {
-  type        = list(string)
-  default     = ["true", "Test", "Dev", "Sandbox"]
-  description = "Tag value(s) used to disable monitoring at the resource level."
 }
 
 # required AVM interfaces
