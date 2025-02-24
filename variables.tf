@@ -7,17 +7,13 @@ variable "location" {
 variable "amba_root_management_group_display_name" {
   type        = string
   description = "The display name of the management group."
+  nullable    = false
 }
 
 variable "resource_group_name" {
   type        = string
   default     = "rg-amba-monitoring-001"
   description = "The resource group where the resources will be deployed."
-}
-
-variable "management_subscription_id" {
-  type        = string
-  description = "The subscription ID of the management subscription."
 }
 
 variable "user_assigned_managed_identity_name" {
