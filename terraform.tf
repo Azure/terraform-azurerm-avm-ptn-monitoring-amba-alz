@@ -8,7 +8,6 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "~> 3.71"
-      subscription_id = var.management_subscription_id
     }
     azapi = {
       source  = "Azure/azapi"
