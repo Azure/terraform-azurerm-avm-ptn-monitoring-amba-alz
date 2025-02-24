@@ -39,7 +39,6 @@ module "role_assignments" {
       }
     }
   }
-  depends_on = [module.user_assigned_managed_identity]
 }
 
 # required AVM resources interfaces
