@@ -14,30 +14,37 @@ module "user_assigned_managed_identity" {
   name                = var.user_assigned_managed_identity_name
 }
 
-module "role_assignments" {
-  source  = "Azure/avm-res-authorization-roleassignment/azurerm"
-  version = "0.2.0"
-
-  user_assigned_managed_identities_by_client_id = {
-    mi1 = module.user_assigned_managed_identity.client_id
-  }
-
-  role_definitions = {
-    monitoring_reader = {
-      name = "Monitoring Reader"
+resource "azapi_resource" "role_assignments" {
+  type = "Microsoft.Authorization/roleAssignments@2022-04-01"
+  body = {
+    properties = {
+      principalId      = module.user_assigned_managed_identity.principal_id
+      roleDefinitionId = "/providers/Microsoft.Authorization/roleDefinitions/43d0d8ad-25c7-4714-9337-8ba259a9fe05"
+      description      = "_deployed_by_amba"
+      principalType    = "ServicePrincipal"
     }
   }
+  name      = uuid()
+  parent_id = "/providers/Microsoft.Management/managementGroups/contoso"
 
-  role_assignments_for_management_groups = {
-    amba-uami = {
-      management_group_display_name = var.amba_root_management_group_display_name
-      role_assignments = {
-        role_assignment1 = {
-          role_definition                  = "monitoring_reader"
-          user_assigned_managed_identities = ["mi1"]
-        }
-      }
-    }
+  retry = var.retries.role_assignments.error_message_regex != null ? {
+    error_message_regex  = var.retries.role_assignments.error_message_regex
+    interval_seconds     = lookup(var.retries.role_assignments, "interval_seconds", null)
+    max_interval_seconds = lookup(var.retries.role_assignments, "max_interval_seconds", null)
+    multiplier           = lookup(var.retries.role_assignments, "multiplier", null)
+    randomization_factor = lookup(var.retries.role_assignments, "randomization_factor", null)
+  } : null
+
+  timeouts {
+    create = var.timeouts.role_assignment.create
+    delete = var.timeouts.role_assignment.delete
+    read   = var.timeouts.role_assignment.read
+    update = var.timeouts.role_assignment.update
+  }
+
+  lifecycle {
+    # https://github.com/Azure/terraform-provider-azapi/issues/671
+    ignore_changes = [output.properties.updatedOn]
   }
 }
 

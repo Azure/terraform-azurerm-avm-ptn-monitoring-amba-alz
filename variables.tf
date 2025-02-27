@@ -27,6 +27,59 @@ variable "user_assigned_managed_identity_name" {
   }
 }
 
+variable "retries" {
+  type = object({
+    role_assignments = optional(object({
+      error_message_regex = optional(list(string), [
+        "AuthorizationFailed", # Avoids a eventual consistency issue where a recently created management group is not yet available for a GET operation.
+        "ResourceNotFound",    # If the resource has just been created, retry until it is available.
+      ])
+      interval_seconds     = optional(number, null)
+      max_interval_seconds = optional(number, null)
+      multiplier           = optional(number, null)
+      randomization_factor = optional(number, null)
+    }), {})
+  })
+  default     = {}
+  description = <<DESCRIPTION
+The retry settings to apply to the CRUD operations. Value is a nested object, the top level keys are the resources and the values are an object with the following attributes:
+
+- `error_message_regex` - (Optional) A list of error message regexes to retry on. Defaults to `null`, which will will disable retries. Specify a value to enable.
+- `interval_seconds` - (Optional) The initial interval in seconds between retries. Defaults to `null` and will fall back to the provider default value.
+- `max_interval_seconds` - (Optional) The maximum interval in seconds between retries. Defaults to `null` and will fall back to the provider default value.
+- `multiplier` - (Optional) The multiplier to apply to the interval between retries. Defaults to `null` and will fall back to the provider default value.
+- `randomization_factor` - (Optional) The randomization factor to apply to the interval between retries. Defaults to `null` and will fall back to the provider default value.
+
+For more information please see the provider documentation here: <https://registry.terraform.io/providers/Azure/azapi/azurerm/latest/docs/resources/resource#nestedatt--retry>
+DESCRIPTION
+}
+
+variable "timeouts" {
+  type = object({
+    role_assignment = optional(object({
+      create = optional(string, "5m")
+      delete = optional(string, "5m")
+      update = optional(string, "5m")
+      read   = optional(string, "5m")
+      }), {}
+    )
+  })
+  default     = {}
+  description = <<DESCRIPTION
+A map of timeouts to apply to the creation and destruction of resources.
+If using retry, the maximum elapsed retry time is governed by this value.
+
+The object has attributes for each resource type, with the following optional attributes:
+
+- `create` - (Optional) The timeout for creating the resource. Defaults to `5m` apart from policy assignments, where this is set to `15m`.
+- `delete` - (Optional) The timeout for deleting the resource. Defaults to `5m`.
+- `update` - (Optional) The timeout for updating the resource. Defaults to `5m`.
+- `read` - (Optional) The timeout for reading the resource. Defaults to `5m`.
+
+Each time duration is parsed using this function: <https://pkg.go.dev/time#ParseDuration>.
+DESCRIPTION
+}
+
 # required AVM interfaces
 # remove only if not supported by the resource
 # tflint-ignore: terraform_unused_declarations
