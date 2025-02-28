@@ -1,10 +1,16 @@
 data "azapi_client_config" "current" {}
 
 provider "alz" {
-  library_references = [{
-    path = "platform/amba"
-    ref  = "2025.02.0"
-  }]
+  library_overwrite_enabled = true
+  library_references = [
+    {
+      path = "platform/amba"
+      ref  = "2025.02.0"
+    },
+    {
+      custom_url = "${path.root}/lib"
+    }
+  ]
 }
 
 provider "azurerm" {
@@ -38,7 +44,7 @@ variable "action_group_arm_role_id" {
 }
 
 locals {
-  root_management_group_name = "alz"
+  root_management_group_name = jsondecode(file("${path.root}/lib/custom.alz_architecture_definition.json")).management_groups[0].id
 }
 
 module "amba-alz" {
@@ -53,7 +59,7 @@ module "amba-alz" {
 module "amba-policy" {
   source             = "Azure/avm-ptn-alz/azurerm"
   version            = "0.11.0"
-  architecture_name  = "amba"
+  architecture_name  = "custom"
   location           = var.location
   parent_resource_id = data.azapi_client_config.current.tenant_id
   policy_default_values = {

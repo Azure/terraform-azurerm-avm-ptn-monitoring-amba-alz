@@ -4,7 +4,7 @@ variable "location" {
   nullable    = false
 }
 
-variable "amba_root_management_group_display_name" {
+variable "amba_root_management_group_name" {
   type        = string
   description = "The display name of the management group."
   nullable    = false
