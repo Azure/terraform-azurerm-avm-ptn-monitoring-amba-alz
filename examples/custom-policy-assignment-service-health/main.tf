@@ -43,7 +43,7 @@ variable "action_group_arm_role_id" {
   default     = []
 }
 
-module "amba-policy" {
+module "amba_policy" {
   source             = "Azure/avm-ptn-alz/azurerm"
   version            = "0.11.0"
   architecture_name  = "custom"

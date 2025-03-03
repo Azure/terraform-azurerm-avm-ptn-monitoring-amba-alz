@@ -47,7 +47,7 @@ locals {
   root_management_group_name = jsondecode(file("${path.root}/lib/custom.alz_architecture_definition.json")).management_groups[0].id
 }
 
-module "amba-alz" {
+module "amba_alz" {
   source = "git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz?ref=feat-amba-alz"
   providers = {
     azurerm = azurerm.management
@@ -56,7 +56,7 @@ module "amba-alz" {
   amba_root_management_group_name = local.root_management_group_name
 }
 
-module "amba-policy" {
+module "amba_policy" {
   source             = "Azure/avm-ptn-alz/azurerm"
   version            = "0.11.0"
   architecture_name  = "custom"

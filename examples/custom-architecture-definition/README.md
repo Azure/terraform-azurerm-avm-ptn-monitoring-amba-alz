@@ -53,7 +53,7 @@ locals {
   root_management_group_name = jsondecode(file("${path.root}/lib/custom.alz_architecture_definition.json")).management_groups[0].id
 }
 
-module "amba-alz" {
+module "amba_alz" {
   source = "git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz?ref=feat-amba-alz"
   providers = {
     azurerm = azurerm.management
@@ -62,7 +62,7 @@ module "amba-alz" {
   amba_root_management_group_name = local.root_management_group_name
 }
 
-module "amba-policy" {
+module "amba_policy" {
   source             = "Azure/avm-ptn-alz/azurerm"
   version            = "0.11.0"
   architecture_name  = "custom"
@@ -88,13 +88,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.2)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 3.71)
-
-- <a name="requirement_local"></a> [local](#requirement\_local) (~> 2.5)
-
-- <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
-
-- <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.6)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
 ## Resources
 
@@ -151,13 +145,13 @@ No outputs.
 
 The following Modules are called:
 
-### <a name="module_amba-alz"></a> [amba-alz](#module\_amba-alz)
+### <a name="module_amba_alz"></a> [amba\_alz](#module\_amba\_alz)
 
 Source: git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz
 
 Version: feat-amba-alz
 
-### <a name="module_amba-policy"></a> [amba-policy](#module\_amba-policy)
+### <a name="module_amba_policy"></a> [amba\_policy](#module\_amba\_policy)
 
 Source: Azure/avm-ptn-alz/azurerm
 

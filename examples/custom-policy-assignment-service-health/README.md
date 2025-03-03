@@ -49,7 +49,7 @@ variable "action_group_arm_role_id" {
   default     = []
 }
 
-module "amba-policy" {
+module "amba_policy" {
   source             = "Azure/avm-ptn-alz/azurerm"
   version            = "0.11.0"
   architecture_name  = "custom"
@@ -75,13 +75,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.2)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 3.71)
-
-- <a name="requirement_local"></a> [local](#requirement\_local) (~> 2.5)
-
-- <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
-
-- <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.6)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
 ## Resources
 
@@ -138,7 +132,7 @@ No outputs.
 
 The following Modules are called:
 
-### <a name="module_amba-policy"></a> [amba-policy](#module\_amba-policy)
+### <a name="module_amba_policy"></a> [amba\_policy](#module\_amba\_policy)
 
 Source: Azure/avm-ptn-alz/azurerm
 
