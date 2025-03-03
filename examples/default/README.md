@@ -43,6 +43,14 @@ variable "action_group_arm_role_id" {
   default     = []
 }
 
+variable "tags" {
+  type = map(string)
+  default = {
+    _deployed_by_amba = "True"
+  }
+  description = "(Optional) Tags of the resource."
+}
+
 locals {
   root_management_group_name = "alz"
 }
@@ -65,6 +73,7 @@ module "amba_policy" {
   policy_default_values = {
     amba_alz_management_subscription_id = jsonencode({ value = var.management_subscription_id })
     amba_alz_resource_group_location    = jsonencode({ value = var.location })
+    amba_alz_resource_group_tags        = jsonencode({ value = var.tags })
     amba_alz_action_group_email         = jsonencode({ value = var.action_group_email })
     amba_alz_arm_role_id                = jsonencode({ value = var.action_group_arm_role_id })
   }
@@ -130,6 +139,20 @@ Description: Management subscription ID
 Type: `string`
 
 Default: `""`
+
+### <a name="input_tags"></a> [tags](#input\_tags)
+
+Description: (Optional) Tags of the resource.
+
+Type: `map(string)`
+
+Default:
+
+```json
+{
+  "_deployed_by_amba": "True"
+}
+```
 
 ## Outputs
 

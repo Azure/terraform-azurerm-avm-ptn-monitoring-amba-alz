@@ -73,6 +73,7 @@ module "amba_policy" {
   policy_default_values = {
     amba_alz_management_subscription_id = jsonencode({ value = var.management_subscription_id })
     amba_alz_resource_group_location    = jsonencode({ value = var.location })
+    amba_alz_resource_group_tags        = jsonencode({ value = var.tags })
     amba_alz_action_group_email         = jsonencode({ value = var.action_group_email })
     amba_alz_arm_role_id                = jsonencode({ value = var.action_group_arm_role_id })
   }

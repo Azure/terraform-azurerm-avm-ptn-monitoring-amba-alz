@@ -32,6 +32,8 @@ The following requirements are needed by this module:
 
 - <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
 
+- <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.6)
+
 ## Resources
 
 The following resources are used by this module:
@@ -167,13 +169,7 @@ Description: (Optional) Tags of the resource.
 
 Type: `map(string)`
 
-Default:
-
-```json
-{
-  "_deployed_by_amba": "True"
-}
-```
+Default: `null`
 
 ### <a name="input_timeouts"></a> [timeouts](#input\_timeouts)
 
