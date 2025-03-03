@@ -43,6 +43,14 @@ variable "action_group_arm_role_id" {
   default     = []
 }
 
+variable "tags" {
+  type = map(string)
+  default = {
+    _deployed_by_amba = "True"
+  }
+  description = "(Optional) Tags of the resource."
+}
+
 locals {
   root_management_group_name = jsondecode(file("${path.root}/lib/custom.alz_architecture_definition.json")).management_groups[0].id
 }
