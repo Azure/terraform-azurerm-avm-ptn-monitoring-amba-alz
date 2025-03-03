@@ -1,8 +1,6 @@
-variable "location" {
-  type        = string
-  description = "Azure region where the resource should be deployed."
-  nullable    = false
-}
+# required AVM interfaces
+# remove only if not supported by the resource
+# tflint-ignore: terraform_unused_declarations
 
 variable "amba_root_management_group_name" {
   type        = string
@@ -10,79 +8,11 @@ variable "amba_root_management_group_name" {
   nullable    = false
 }
 
-variable "resource_group_name" {
+variable "location" {
   type        = string
-  default     = "rg-amba-monitoring-001"
-  description = "The resource group where the resources will be deployed."
+  description = "Azure region where the resource should be deployed."
+  nullable    = false
 }
-
-variable "user_assigned_managed_identity_name" {
-  type        = string
-  default     = "id-amba-prod-001"
-  description = "The name of the user-assigned managed identity."
-
-  validation {
-    condition     = can(regex("^[a-zA-Z0-9][a-zA-Z0-9_-]{1,126}[a-zA-Z0-9]$", var.user_assigned_managed_identity_name))
-    error_message = "The resource name must start with a letter or number, have a length between 3 and 128 characters and can only contain a combination of alphanumeric characters, hyphens and underscores."
-  }
-}
-
-variable "retries" {
-  type = object({
-    role_assignments = optional(object({
-      error_message_regex = optional(list(string), [
-        "AuthorizationFailed", # Avoids a eventual consistency issue where a recently created management group is not yet available for a GET operation.
-        "ResourceNotFound",    # If the resource has just been created, retry until it is available.
-      ])
-      interval_seconds     = optional(number, null)
-      max_interval_seconds = optional(number, null)
-      multiplier           = optional(number, null)
-      randomization_factor = optional(number, null)
-    }), {})
-  })
-  default     = {}
-  description = <<DESCRIPTION
-The retry settings to apply to the CRUD operations. Value is a nested object, the top level keys are the resources and the values are an object with the following attributes:
-
-- `error_message_regex` - (Optional) A list of error message regexes to retry on. Defaults to `null`, which will will disable retries. Specify a value to enable.
-- `interval_seconds` - (Optional) The initial interval in seconds between retries. Defaults to `null` and will fall back to the provider default value.
-- `max_interval_seconds` - (Optional) The maximum interval in seconds between retries. Defaults to `null` and will fall back to the provider default value.
-- `multiplier` - (Optional) The multiplier to apply to the interval between retries. Defaults to `null` and will fall back to the provider default value.
-- `randomization_factor` - (Optional) The randomization factor to apply to the interval between retries. Defaults to `null` and will fall back to the provider default value.
-
-For more information please see the provider documentation here: <https://registry.terraform.io/providers/Azure/azapi/azurerm/latest/docs/resources/resource#nestedatt--retry>
-DESCRIPTION
-}
-
-variable "timeouts" {
-  type = object({
-    role_assignment = optional(object({
-      create = optional(string, "5m")
-      delete = optional(string, "5m")
-      update = optional(string, "5m")
-      read   = optional(string, "5m")
-      }), {}
-    )
-  })
-  default     = {}
-  description = <<DESCRIPTION
-A map of timeouts to apply to the creation and destruction of resources.
-If using retry, the maximum elapsed retry time is governed by this value.
-
-The object has attributes for each resource type, with the following optional attributes:
-
-- `create` - (Optional) The timeout for creating the resource. Defaults to `5m` apart from policy assignments, where this is set to `15m`.
-- `delete` - (Optional) The timeout for deleting the resource. Defaults to `5m`.
-- `update` - (Optional) The timeout for updating the resource. Defaults to `5m`.
-- `read` - (Optional) The timeout for reading the resource. Defaults to `5m`.
-
-Each time duration is parsed using this function: <https://pkg.go.dev/time#ParseDuration>.
-DESCRIPTION
-}
-
-# required AVM interfaces
-# remove only if not supported by the resource
-# tflint-ignore: terraform_unused_declarations
 
 variable "enable_telemetry" {
   type        = bool
@@ -114,6 +44,39 @@ DESCRIPTION
   }
 }
 
+variable "resource_group_name" {
+  type        = string
+  default     = "rg-amba-monitoring-001"
+  description = "The resource group where the resources will be deployed."
+}
+
+variable "retries" {
+  type = object({
+    role_assignments = optional(object({
+      error_message_regex = optional(list(string), [
+        "AuthorizationFailed", # Avoids a eventual consistency issue where a recently created management group is not yet available for a GET operation.
+        "ResourceNotFound",    # If the resource has just been created, retry until it is available.
+      ])
+      interval_seconds     = optional(number, null)
+      max_interval_seconds = optional(number, null)
+      multiplier           = optional(number, null)
+      randomization_factor = optional(number, null)
+    }), {})
+  })
+  default     = {}
+  description = <<DESCRIPTION
+The retry settings to apply to the CRUD operations. Value is a nested object, the top level keys are the resources and the values are an object with the following attributes:
+
+- `error_message_regex` - (Optional) A list of error message regexes to retry on. Defaults to `null`, which will will disable retries. Specify a value to enable.
+- `interval_seconds` - (Optional) The initial interval in seconds between retries. Defaults to `null` and will fall back to the provider default value.
+- `max_interval_seconds` - (Optional) The maximum interval in seconds between retries. Defaults to `null` and will fall back to the provider default value.
+- `multiplier` - (Optional) The multiplier to apply to the interval between retries. Defaults to `null` and will fall back to the provider default value.
+- `randomization_factor` - (Optional) The randomization factor to apply to the interval between retries. Defaults to `null` and will fall back to the provider default value.
+
+For more information please see the provider documentation here: <https://registry.terraform.io/providers/Azure/azapi/azurerm/latest/docs/resources/resource#nestedatt--retry>
+DESCRIPTION
+}
+
 variable "role_assignments" {
   type = map(object({
     role_definition_id_or_name             = string
@@ -142,9 +105,46 @@ DESCRIPTION
 
 # tflint-ignore: terraform_unused_declarations
 variable "tags" {
-  type        = map(string)
-  default     = {
+  type = map(string)
+  default = {
     _deployed_by_amba = "True"
   }
   description = "(Optional) Tags of the resource."
+}
+
+variable "timeouts" {
+  type = object({
+    role_assignment = optional(object({
+      create = optional(string, "5m")
+      delete = optional(string, "5m")
+      update = optional(string, "5m")
+      read   = optional(string, "5m")
+      }), {}
+    )
+  })
+  default     = {}
+  description = <<DESCRIPTION
+A map of timeouts to apply to the creation and destruction of resources.
+If using retry, the maximum elapsed retry time is governed by this value.
+
+The object has attributes for each resource type, with the following optional attributes:
+
+- `create` - (Optional) The timeout for creating the resource. Defaults to `5m` apart from policy assignments, where this is set to `15m`.
+- `delete` - (Optional) The timeout for deleting the resource. Defaults to `5m`.
+- `update` - (Optional) The timeout for updating the resource. Defaults to `5m`.
+- `read` - (Optional) The timeout for reading the resource. Defaults to `5m`.
+
+Each time duration is parsed using this function: <https://pkg.go.dev/time#ParseDuration>.
+DESCRIPTION
+}
+
+variable "user_assigned_managed_identity_name" {
+  type        = string
+  default     = "id-amba-prod-001"
+  description = "The name of the user-assigned managed identity."
+
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9][a-zA-Z0-9_-]{1,126}[a-zA-Z0-9]$", var.user_assigned_managed_identity_name))
+    error_message = "The resource name must start with a letter or number, have a length between 3 and 128 characters and can only contain a combination of alphanumeric characters, hyphens and underscores."
+  }
 }
