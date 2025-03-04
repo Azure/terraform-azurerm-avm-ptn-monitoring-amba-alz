@@ -28,13 +28,13 @@ provider "azurerm" {
 variable "management_subscription_id" {
   description = "Management subscription ID"
   type        = string
-  default     = ""
+  default     = "00000000-0000-0000-0000-000000000000"
 }
 
 variable "location" {
   description = "Location"
   type        = string
-  default     = ""
+  default     = "swedencentral"
 }
 
 variable "action_group_email" {
@@ -114,7 +114,7 @@ Description: Location
 
 Type: `string`
 
-Default: `""`
+Default: `"swedencentral"`
 
 ### <a name="input_management_subscription_id"></a> [management\_subscription\_id](#input\_management\_subscription\_id)
 
@@ -122,7 +122,7 @@ Description: Management subscription ID
 
 Type: `string`
 
-Default: `""`
+Default: `"00000000-0000-0000-0000-000000000000"`
 
 ## Outputs
 

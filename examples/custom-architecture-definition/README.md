@@ -28,13 +28,13 @@ provider "azurerm" {
 variable "management_subscription_id" {
   description = "Management subscription ID"
   type        = string
-  default     = ""
+  default     = "00000000-0000-0000-0000-000000000000"
 }
 
 variable "location" {
   description = "Location"
   type        = string
-  default     = ""
+  default     = "swedencentral"
 }
 
 variable "action_group_email" {
@@ -62,7 +62,7 @@ locals {
 }
 
 module "amba_alz" {
-  source = "git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz?ref=feat-amba-alz"
+  source = "../../"
   providers = {
     azurerm = azurerm.management
   }
@@ -136,7 +136,7 @@ Description: Location
 
 Type: `string`
 
-Default: `""`
+Default: `"swedencentral"`
 
 ### <a name="input_management_subscription_id"></a> [management\_subscription\_id](#input\_management\_subscription\_id)
 
@@ -144,7 +144,7 @@ Description: Management subscription ID
 
 Type: `string`
 
-Default: `""`
+Default: `"00000000-0000-0000-0000-000000000000"`
 
 ### <a name="input_tags"></a> [tags](#input\_tags)
 
@@ -170,9 +170,9 @@ The following Modules are called:
 
 ### <a name="module_amba_alz"></a> [amba\_alz](#module\_amba\_alz)
 
-Source: git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz
+Source: ../../
 
-Version: feat-amba-alz
+Version:
 
 ### <a name="module_amba_policy"></a> [amba\_policy](#module\_amba\_policy)
 
