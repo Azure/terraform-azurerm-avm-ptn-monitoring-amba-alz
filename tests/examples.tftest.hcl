@@ -2,6 +2,12 @@ provider "azurerm" {
   features {}
 }
 
+variables {
+  parent_resource_id = "test"
+  management_subscription_id = "test"
+  location           = "test"
+}
+
 run "examples_default" {
   command = plan
 
@@ -18,3 +24,18 @@ run "examples_complete" {
   }
 }
 
+run "examples_custom_architecture_definition" {
+  command = plan
+
+  module {
+    source = "./examples/custom-architecture-definition"
+  }
+}
+
+run "examples_custom_policy_assignment_service_health" {
+  command = plan
+
+  module {
+    source = "./examples/custom-policy-assignment-service-health"
+  }
+}
