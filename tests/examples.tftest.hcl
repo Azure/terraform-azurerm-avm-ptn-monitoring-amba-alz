@@ -3,9 +3,9 @@ provider "azurerm" {
 }
 
 variables {
-  parent_resource_id = "test"
+  parent_resource_id         = "test"
   management_subscription_id = "test"
-  location           = "test"
+  location                   = "test"
 }
 
 run "examples_default" {

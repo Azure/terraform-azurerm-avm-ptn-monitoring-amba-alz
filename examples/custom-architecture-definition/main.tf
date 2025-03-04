@@ -56,7 +56,7 @@ locals {
 }
 
 module "amba_alz" {
-  source = "git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz?ref=feat-amba-alz"
+  source = "../../"
   providers = {
     azurerm = azurerm.management
   }
