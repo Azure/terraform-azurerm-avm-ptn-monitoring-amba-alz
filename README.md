@@ -158,6 +158,7 @@ map(object({
     condition                              = optional(string, null)
     condition_version                      = optional(string, null)
     delegated_managed_identity_resource_id = optional(string, null)
+    principal_type                         = optional(string, null)
   }))
 ```
 
@@ -216,6 +217,10 @@ The following outputs are exported:
 ### <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name)
 
 Description: The resource group name
+
+### <a name="output_resource_id"></a> [resource\_id](#output\_resource\_id)
+
+Description: The resource id of the resource group
 
 ### <a name="output_user_assigned_managed_identities_resource_id"></a> [user\_assigned\_managed\_identities\_resource\_id](#output\_user\_assigned\_managed\_identities\_resource\_id)
 
