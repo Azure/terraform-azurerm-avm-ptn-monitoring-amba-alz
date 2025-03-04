@@ -16,13 +16,13 @@ provider "azurerm" {
 variable "management_subscription_id" {
   description = "Management subscription ID"
   type        = string
-  default     = ""
+  default     = "00000000-0000-0000-0000-000000000000"
 }
 
 variable "location" {
   description = "Location"
   type        = string
-  default     = ""
+  default     = "swedencentral"
 }
 
 variable "resource_group_name" {
