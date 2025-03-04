@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
-# Default example
+# Deploying AMBA ALZ
 
-This deploys the module in its simplest form.
+This example demonstrates how to deploy the AMBA ALZ pattern using an existing management group hierarchy with default naming as used in the ALZ reference architecture.
 
 ```hcl
 data "azapi_client_config" "current" {}

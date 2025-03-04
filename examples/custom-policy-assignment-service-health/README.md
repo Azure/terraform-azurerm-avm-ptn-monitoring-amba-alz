@@ -1,7 +1,10 @@
 <!-- BEGIN_TF_DOCS -->
-# Default example
+# Deploying Service Health only
 
-This deploys the module in its simplest form.
+This example demonstrates a situation where only Service Health is deployed:
+
+- Deploy using a custom management group hierarchy defined by architecture definition file in the local library.
+- Use a custom root archetype to ensure that the Service Health policy definitions and assignments are deployed.
 
 ```hcl
 data "azapi_client_config" "current" {}
