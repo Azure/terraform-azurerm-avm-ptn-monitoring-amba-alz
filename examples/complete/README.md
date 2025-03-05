@@ -144,8 +144,10 @@ module "amba_alz" {
   providers = {
     azurerm = azurerm.management
   }
-  location                        = var.location
-  amba_root_management_group_name = local.root_management_group_name
+  location                            = var.location
+  amba_root_management_group_name     = local.root_management_group_name
+  resource_group_name                 = var.resource_group_name
+  user_assigned_managed_identity_name = var.user_assigned_managed_identity_name
 
   count = var.bring_your_own_user_assigned_managed_identity ? 0 : 1
 }
