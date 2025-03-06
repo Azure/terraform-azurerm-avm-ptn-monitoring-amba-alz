@@ -15,14 +15,14 @@ provider "alz" {
 
 provider "azurerm" {
   alias           = "management"
-  subscription_id = var.management_subscription_id
+  subscription_id = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id
   features {}
 }
 
 variable "management_subscription_id" {
   description = "Management subscription ID"
   type        = string
-  default     = "00000000-0000-0000-0000-000000000000"
+  default     = ""
 }
 
 variable "location" {
@@ -71,7 +71,7 @@ module "amba_policy" {
   location           = var.location
   parent_resource_id = data.azapi_client_config.current.tenant_id
   policy_default_values = {
-    amba_alz_management_subscription_id = jsonencode({ value = var.management_subscription_id })
+    amba_alz_management_subscription_id = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
     amba_alz_resource_group_location    = jsonencode({ value = var.location })
     amba_alz_resource_group_tags        = jsonencode({ value = var.tags })
     amba_alz_action_group_email         = jsonencode({ value = var.action_group_email })
@@ -138,7 +138,7 @@ Description: Management subscription ID
 
 Type: `string`
 
-Default: `"00000000-0000-0000-0000-000000000000"`
+Default: `""`
 
 ### <a name="input_tags"></a> [tags](#input\_tags)
 
