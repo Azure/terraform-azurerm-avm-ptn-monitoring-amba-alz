@@ -22,7 +22,7 @@ provider "azurerm" {
 variable "management_subscription_id" {
   description = "Management subscription ID"
   type        = string
-  default     = "00000000-0000-0000-0000-000000000000"
+  default     = data.azurerm_client_config.current.subscription_id
 }
 
 variable "location" {
