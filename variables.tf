@@ -2,7 +2,7 @@
 # remove only if not supported by the resource
 # tflint-ignore: terraform_unused_declarations
 
-variable "amba_root_management_group_name" {
+variable "root_management_group_name" {
   type        = string
   description = "The name (ID) of the management group."
   nullable    = false

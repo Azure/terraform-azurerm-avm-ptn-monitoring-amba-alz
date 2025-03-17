@@ -25,7 +25,7 @@ resource "azapi_resource" "role_assignments" {
     }
   }
   name      = uuid()
-  parent_id = "/providers/Microsoft.Management/managementGroups/${var.amba_root_management_group_name}"
+  parent_id = "/providers/Microsoft.Management/managementGroups/${var.root_management_group_name}"
   retry = var.retries.role_assignments.error_message_regex != null ? {
     error_message_regex  = var.retries.role_assignments.error_message_regex
     interval_seconds     = lookup(var.retries.role_assignments, "interval_seconds", null)

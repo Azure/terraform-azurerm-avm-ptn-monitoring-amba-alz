@@ -54,8 +54,8 @@ module "amba_alz" {
   providers = {
     azurerm = azurerm.management
   }
-  location                        = var.location
-  amba_root_management_group_name = local.root_management_group_name
+  location                   = var.location
+  root_management_group_name = local.root_management_group_name
 }
 
 module "amba_policy" {
