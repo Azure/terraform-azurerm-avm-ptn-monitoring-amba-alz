@@ -8,7 +8,7 @@ output "resource_id" {
   value       = module.resource_group.resource_id
 }
 
-output "user_assigned_managed_identities_resource_id" {
+output "user_assigned_managed_identity_resource_id" {
   description = "The resource id of the user assigned managed identity"
   value       = module.user_assigned_managed_identity.resource_id
 }
