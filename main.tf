@@ -19,8 +19,8 @@ resource "azapi_resource" "role_assignments" {
   body = {
     properties = {
       principalId      = module.user_assigned_managed_identity.principal_id
-      roleDefinitionId = "/providers/Microsoft.Authorization/roleDefinitions/43d0d8ad-25c7-4714-9337-8ba259a9fe05"
-      description      = "_deployed_by_amba"
+      roleDefinitionId = "/providers/Microsoft.Authorization/roleDefinitions/${var.role_definition_id}"
+      description      = var.description
       principalType    = "ServicePrincipal"
     }
   }

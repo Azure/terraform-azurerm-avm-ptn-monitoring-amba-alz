@@ -147,3 +147,15 @@ variable "user_assigned_managed_identity_name" {
     error_message = "The resource name must start with a letter or number, have a length between 3 and 128 characters and can only contain a combination of alphanumeric characters, hyphens and underscores."
   }
 }
+
+variable "description" {
+  type        = string
+  default     = "_deployed_by_amba"
+  description = "The description used for the role assignment to identify the resource as deployed by AMBA."
+}
+
+variable "role_definition_id" {
+  type        = string
+  default     = "43d0d8ad-25c7-4714-9337-8ba259a9fe05"
+  description = "The role definition ID to assign to the User Assigned Managed Identity. Defaults to Monitoring Reader."
+}
