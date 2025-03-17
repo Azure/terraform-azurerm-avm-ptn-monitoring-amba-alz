@@ -4,7 +4,7 @@
 
 variable "amba_root_management_group_name" {
   type        = string
-  description = "The display name of the management group."
+  description = "The name (ID) of the management group."
   nullable    = false
 }
 
