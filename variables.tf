@@ -2,16 +2,22 @@
 # remove only if not supported by the resource
 # tflint-ignore: terraform_unused_declarations
 
+variable "location" {
+  type        = string
+  description = "Azure region where the resource should be deployed."
+  nullable    = false
+}
+
 variable "root_management_group_name" {
   type        = string
   description = "The name (ID) of the management group."
   nullable    = false
 }
 
-variable "location" {
+variable "description" {
   type        = string
-  description = "Azure region where the resource should be deployed."
-  nullable    = false
+  default     = "_deployed_by_amba"
+  description = "The description used for the role assignment to identify the resource as deployed by AMBA."
 }
 
 variable "enable_telemetry" {
@@ -104,6 +110,12 @@ DESCRIPTION
   nullable    = false
 }
 
+variable "role_definition_id" {
+  type        = string
+  default     = "43d0d8ad-25c7-4714-9337-8ba259a9fe05"
+  description = "The role definition ID to assign to the User Assigned Managed Identity. Defaults to Monitoring Reader."
+}
+
 # tflint-ignore: terraform_unused_declarations
 variable "tags" {
   type        = map(string)
@@ -146,16 +158,4 @@ variable "user_assigned_managed_identity_name" {
     condition     = can(regex("^[a-zA-Z0-9][a-zA-Z0-9_-]{1,126}[a-zA-Z0-9]$", var.user_assigned_managed_identity_name))
     error_message = "The resource name must start with a letter or number, have a length between 3 and 128 characters and can only contain a combination of alphanumeric characters, hyphens and underscores."
   }
-}
-
-variable "description" {
-  type        = string
-  default     = "_deployed_by_amba"
-  description = "The description used for the role assignment to identify the resource as deployed by AMBA."
-}
-
-variable "role_definition_id" {
-  type        = string
-  default     = "43d0d8ad-25c7-4714-9337-8ba259a9fe05"
-  description = "The role definition ID to assign to the User Assigned Managed Identity. Defaults to Monitoring Reader."
 }

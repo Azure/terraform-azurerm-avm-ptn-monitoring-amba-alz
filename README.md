@@ -46,21 +46,29 @@ The following resources are used by this module:
 
 The following input variables are required:
 
-### <a name="input_amba_root_management_group_name"></a> [amba\_root\_management\_group\_name](#input\_amba\_root\_management\_group\_name)
-
-Description: The display name of the management group.
-
-Type: `string`
-
 ### <a name="input_location"></a> [location](#input\_location)
 
 Description: Azure region where the resource should be deployed.
 
 Type: `string`
 
+### <a name="input_root_management_group_name"></a> [root\_management\_group\_name](#input\_root\_management\_group\_name)
+
+Description: The name (ID) of the management group.
+
+Type: `string`
+
 ## Optional Inputs
 
 The following input variables are optional (have default values):
+
+### <a name="input_description"></a> [description](#input\_description)
+
+Description: The description used for the role assignment to identify the resource as deployed by AMBA.
+
+Type: `string`
+
+Default: `"_deployed_by_amba"`
 
 ### <a name="input_enable_telemetry"></a> [enable\_telemetry](#input\_enable\_telemetry)
 
@@ -159,6 +167,14 @@ map(object({
 
 Default: `{}`
 
+### <a name="input_role_definition_id"></a> [role\_definition\_id](#input\_role\_definition\_id)
+
+Description: The role definition ID to assign to the User Assigned Managed Identity. Defaults to Monitoring Reader.
+
+Type: `string`
+
+Default: `"43d0d8ad-25c7-4714-9337-8ba259a9fe05"`
+
 ### <a name="input_tags"></a> [tags](#input\_tags)
 
 Description: (Optional) Tags of the resource.
@@ -217,13 +233,13 @@ Description: The resource group name
 
 Description: The resource id of the resource group
 
-### <a name="output_user_assigned_managed_identities_resource_id"></a> [user\_assigned\_managed\_identities\_resource\_id](#output\_user\_assigned\_managed\_identities\_resource\_id)
-
-Description: The resource id of the user assigned managed identity
-
 ### <a name="output_user_assigned_managed_identity_name"></a> [user\_assigned\_managed\_identity\_name](#output\_user\_assigned\_managed\_identity\_name)
 
 Description: The user assigned managed identity name
+
+### <a name="output_user_assigned_managed_identity_resource_id"></a> [user\_assigned\_managed\_identity\_resource\_id](#output\_user\_assigned\_managed\_identity\_resource\_id)
+
+Description: The resource id of the user assigned managed identity
 
 ## Modules
 

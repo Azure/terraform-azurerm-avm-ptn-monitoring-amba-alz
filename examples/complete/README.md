@@ -145,7 +145,7 @@ module "amba_alz" {
     azurerm = azurerm.management
   }
   location                            = var.location
-  amba_root_management_group_name     = local.root_management_group_name
+  root_management_group_name          = local.root_management_group_name
   resource_group_name                 = var.resource_group_name
   user_assigned_managed_identity_name = var.user_assigned_managed_identity_name
 

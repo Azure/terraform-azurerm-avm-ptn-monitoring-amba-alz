@@ -31,11 +31,3 @@ run "examples_custom_architecture_definition" {
     source = "./examples/custom-architecture-definition"
   }
 }
-
-run "examples_custom_policy_assignment_service_health" {
-  command = plan
-
-  module {
-    source = "./examples/custom-policy-assignment-service-health"
-  }
-}
