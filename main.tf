@@ -1,9 +1,12 @@
 module "resource_group" {
-  source   = "Azure/avm-res-resources-resourcegroup/azurerm"
-  version  = "0.2.1"
-  location = var.location
-  name     = var.resource_group_name
-  tags     = var.tags
+  source           = "Azure/avm-res-resources-resourcegroup/azurerm"
+  version          = "0.2.1"
+  location         = var.location
+  name             = var.resource_group_name
+  tags             = var.tags
+  lock             = var.lock
+  role_assignments = var.role_assignments
+  enable_telemetry = var.enable_telemetry
 }
 
 module "user_assigned_managed_identity" {
@@ -12,6 +15,7 @@ module "user_assigned_managed_identity" {
   location            = var.location
   resource_group_name = module.resource_group.name
   name                = var.user_assigned_managed_identity_name
+  enable_telemetry    = var.enable_telemetry
 }
 
 resource "azapi_resource" "role_assignments" {
@@ -45,27 +49,4 @@ resource "azapi_resource" "role_assignments" {
     # https://github.com/Azure/terraform-provider-azapi/issues/671
     ignore_changes = [output.properties.updatedOn]
   }
-}
-
-# required AVM resources interfaces
-resource "azurerm_management_lock" "this" {
-  count = var.lock != null ? 1 : 0
-
-  lock_level = var.lock.kind
-  name       = coalesce(var.lock.name, "lock-${var.lock.kind}")
-  scope      = module.resource_group.resource_id
-  notes      = var.lock.kind == "CanNotDelete" ? "Cannot delete the resource or its child resources." : "Cannot delete or modify the resource or its child resources."
-}
-
-resource "azurerm_role_assignment" "this" {
-  for_each = var.role_assignments
-
-  principal_id                           = each.value.principal_id
-  scope                                  = module.resource_group.resource_id
-  condition                              = each.value.condition
-  condition_version                      = each.value.condition_version
-  delegated_managed_identity_resource_id = each.value.delegated_managed_identity_resource_id
-  role_definition_id                     = strcontains(lower(each.value.role_definition_id_or_name), lower(local.role_definition_resource_substring)) ? each.value.role_definition_id_or_name : null
-  role_definition_name                   = strcontains(lower(each.value.role_definition_id_or_name), lower(local.role_definition_resource_substring)) ? null : each.value.role_definition_id_or_name
-  skip_service_principal_aad_check       = each.value.skip_service_principal_aad_check
 }

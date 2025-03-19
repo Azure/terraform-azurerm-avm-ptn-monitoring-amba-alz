@@ -1,5 +1,3 @@
-# required AVM interfaces
-# remove only if not supported by the resource
 # tflint-ignore: terraform_unused_declarations
 
 variable "location" {
