@@ -12,6 +12,12 @@ variable "root_management_group_name" {
   nullable    = false
 }
 
+variable "deploy_resource_group" {
+  type        = bool
+  default     = true
+  description = "Whether to deploy the resource group."
+}
+
 variable "description" {
   type        = string
   default     = "_deployed_by_amba"

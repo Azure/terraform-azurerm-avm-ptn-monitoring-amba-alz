@@ -7,13 +7,15 @@ module "resource_group" {
   lock             = var.lock
   role_assignments = var.role_assignments
   enable_telemetry = var.enable_telemetry
+
+  count = var.deploy_resource_group ? 1 : 0
 }
 
 module "user_assigned_managed_identity" {
   source              = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
   version             = "0.3.3"
   location            = var.location
-  resource_group_name = module.resource_group.name
+  resource_group_name = var.deploy_resource_group ? module.resource_group.name : var.resource_group_name
   name                = var.user_assigned_managed_identity_name
   enable_telemetry    = var.enable_telemetry
 }
