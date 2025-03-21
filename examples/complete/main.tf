@@ -142,7 +142,6 @@ module "amba_alz" {
   root_management_group_name          = local.root_management_group_name
   resource_group_name                 = var.resource_group_name
   user_assigned_managed_identity_name = var.user_assigned_managed_identity_name
-  deploy_resource_group               = true
 
   count = var.bring_your_own_user_assigned_managed_identity ? 0 : 1
 }
@@ -159,7 +158,7 @@ module "amba_policy" {
     amba_alz_resource_group_name                   = jsonencode({ value = var.resource_group_name })
     amba_alz_resource_group_tags                   = jsonencode({ value = var.tags })
     amba_alz_user_assigned_managed_identity_name   = jsonencode({ value = var.user_assigned_managed_identity_name })
-    amba_alz_byo_user_assigned_managed_identity_id = jsonencode({ value = var.bring_your_own_user_assigned_managed_identity_resource_id != "" ? var.bring_your_own_user_assigned_managed_identity_resource_id : module.amba_alz.amba_alz_byo_user_assigned_managed_identity_id })
+    amba_alz_byo_user_assigned_managed_identity_id = jsonencode({ value = var.bring_your_own_user_assigned_managed_identity_resource_id })
     amba_alz_disable_tag_name                      = jsonencode({ value = var.amba_disable_tag_name })
     amba_alz_disable_tag_values                    = jsonencode({ value = var.amba_disable_tag_values })
     amba_alz_action_group_email                    = jsonencode({ value = var.action_group_email })

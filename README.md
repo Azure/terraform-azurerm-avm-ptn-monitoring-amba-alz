@@ -60,14 +60,6 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
-### <a name="input_deploy_resource_group"></a> [deploy\_resource\_group](#input\_deploy\_resource\_group)
-
-Description: Whether to deploy the resource group.
-
-Type: `bool`
-
-Default: `true`
-
 ### <a name="input_description"></a> [description](#input\_description)
 
 Description: The description used for the role assignment to identify the resource as deployed by AMBA.

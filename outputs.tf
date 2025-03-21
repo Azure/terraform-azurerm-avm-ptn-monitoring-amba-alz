@@ -1,11 +1,11 @@
 output "resource_group_name" {
   description = "The resource group name"
-  value       = var.deploy_resource_group ? module.resource_group[0].name : ""
+  value       = module.resource_group.name
 }
 
 output "resource_id" {
   description = "The resource id of the resource group"
-  value       = var.deploy_resource_group ? module.resource_group[0].resource_id : ""
+  value       = module.resource_group.resource_id
 }
 
 output "user_assigned_managed_identity_name" {
