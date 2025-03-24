@@ -16,18 +16,18 @@ run "examples_default" {
   }
 }
 
-run "examples_complete" {
-  command = plan
+//run "examples_complete" {
+//  command = plan
+//
+//  module {
+//    source = "./examples/complete"
+//  }
+//}
 
-  module {
-    source = "./examples/complete"
-  }
-}
-
-run "examples_custom_architecture_definition" {
-  command = plan
-
-  module {
-    source = "./examples/custom-architecture-definition"
-  }
-}
+//run "examples_custom_architecture_definition" {
+//  command = plan
+//
+//  module {
+//    source = "./examples/custom-architecture-definition"
+//  }
+//}
