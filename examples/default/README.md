@@ -72,8 +72,10 @@ module "amba_alz" {
   providers = {
     azurerm = azurerm.management
   }
-  location                   = var.location
-  root_management_group_name = local.root_management_group_name
+  location                            = var.location
+  root_management_group_name          = local.root_management_group_name
+  resource_group_name                 = var.resource_group_name
+  user_assigned_managed_identity_name = var.user_assigned_managed_identity_name
 }
 
 module "amba_policy" {
@@ -90,7 +92,6 @@ module "amba_policy" {
     amba_alz_user_assigned_managed_identity_name = jsonencode({ value = var.user_assigned_managed_identity_name })
     amba_alz_action_group_email                  = jsonencode({ value = var.action_group_email })
     amba_alz_arm_role_id                         = jsonencode({ value = var.action_group_arm_role_id })
-    amba_alz_user_assigned_managed_identity_name = jsonencode({ value = var.user_assigned_managed_identity_name })
   }
 }
 ```
