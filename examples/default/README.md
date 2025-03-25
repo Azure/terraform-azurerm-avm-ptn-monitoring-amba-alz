@@ -4,10 +4,7 @@
 This example demonstrates how to deploy the AMBA ALZ pattern resources. This module is designed to be used alongside the “avm-ptn-alz” module. For additional information, refer to examples such as “complete” and “custom-architecture-definition”.
 
 ```hcl
-data "azapi_client_config" "current" {}
-
 provider "azurerm" {
-  subscription_id = data.azapi_client_config.current.subscription_id
   features {}
 }
 
@@ -34,9 +31,7 @@ The following requirements are needed by this module:
 
 ## Resources
 
-The following resources are used by this module:
-
-- [azapi_client_config.current](https://registry.terraform.io/providers/azure/azapi/latest/docs/data-sources/client_config) (data source)
+No resources.
 
 <!-- markdownlint-disable MD013 -->
 ## Required Inputs
