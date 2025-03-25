@@ -8,12 +8,17 @@ provider "azurerm" {
   features {}
 }
 
+module "naming" {
+  source  = "Azure/naming/azurerm"
+  version = "~> 0.3"
+}
+
 module "amba_alz" {
-  source                              = "git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz?ref=feat-amba-alz"
+  source                              = "../../"
   location                            = "swedencentral"
   root_management_group_name          = "alz"
-  resource_group_name                 = "rg-amba-monitoring-001"
-  user_assigned_managed_identity_name = "id-amba-prod-001"
+  resource_group_name                 = module.naming.resource_group.name_unique
+  user_assigned_managed_identity_name = module.naming.user_assigned_identity.name_unique
 }
 ```
 
@@ -49,9 +54,15 @@ The following Modules are called:
 
 ### <a name="module_amba_alz"></a> [amba\_alz](#module\_amba\_alz)
 
-Source: git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz
+Source: ../../
 
-Version: feat-amba-alz
+Version:
+
+### <a name="module_naming"></a> [naming](#module\_naming)
+
+Source: Azure/naming/azurerm
+
+Version: ~> 0.3
 
 <!-- markdownlint-disable-next-line MD041 -->
 ## Data Collection
