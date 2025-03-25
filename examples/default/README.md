@@ -1,98 +1,22 @@
 <!-- BEGIN_TF_DOCS -->
 # Deploying AMBA ALZ
 
-This example demonstrates how to deploy the AMBA ALZ pattern using an existing management group hierarchy with default naming as used in the ALZ reference architecture.
+This example demonstrates how to deploy the AMBA ALZ pattern resources. This module is designed to be used alongside the “avm-ptn-alz” module. For additional information, refer to examples such as “complete” and “custom-architecture-definition”.
 
 ```hcl
 data "azapi_client_config" "current" {}
 
-provider "alz" {
-  library_references = [{
-    path = "platform/amba"
-    ref  = "2025.02.0"
-  }]
-}
-
 provider "azurerm" {
-  alias           = "management"
-  subscription_id = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id
+  subscription_id = data.azapi_client_config.current.subscription_id
   features {}
 }
 
-variable "management_subscription_id" {
-  description = "Management subscription ID"
-  type        = string
-  default     = ""
-}
-
-variable "location" {
-  description = "Location"
-  type        = string
-  default     = "swedencentral"
-}
-
-variable "resource_group_name" {
-  type        = string
-  default     = "rg-amba-monitoring-001"
-  description = "The resource group where the resources will be deployed."
-}
-
-variable "user_assigned_managed_identity_name" {
-  type        = string
-  default     = "id-amba-prod-001"
-  description = "The name of the user-assigned managed identity."
-}
-
-variable "action_group_email" {
-  description = "Action group email"
-  type        = list(string)
-  default     = []
-}
-
-variable "action_group_arm_role_id" {
-  description = "Action group ARM role ID"
-  type        = list(string)
-  default     = []
-}
-
-variable "tags" {
-  type = map(string)
-  default = {
-    _deployed_by_amba = "True"
-  }
-  description = "(Optional) Tags of the resource."
-}
-
-locals {
-  root_management_group_name = "alz"
-}
-
 module "amba_alz" {
-  source = "../../"
-  providers = {
-    azurerm = azurerm.management
-  }
-  location                            = var.location
-  root_management_group_name          = local.root_management_group_name
-  resource_group_name                 = var.resource_group_name
-  user_assigned_managed_identity_name = var.user_assigned_managed_identity_name
-}
-
-module "amba_policy" {
-  source             = "Azure/avm-ptn-alz/azurerm"
-  version            = "0.11.0"
-  architecture_name  = "amba"
-  location           = var.location
-  parent_resource_id = data.azapi_client_config.current.tenant_id
-  policy_default_values = {
-    amba_alz_management_subscription_id          = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
-    amba_alz_resource_group_location             = jsonencode({ value = var.location })
-    amba_alz_resource_group_name                 = jsonencode({ value = var.resource_group_name })
-    amba_alz_resource_group_tags                 = jsonencode({ value = var.tags })
-    amba_alz_user_assigned_managed_identity_name = jsonencode({ value = var.user_assigned_managed_identity_name })
-    amba_alz_action_group_email                  = jsonencode({ value = var.action_group_email })
-    amba_alz_arm_role_id                         = jsonencode({ value = var.action_group_arm_role_id })
-  }
+  source                              = "git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz?ref=feat-amba-alz"
+  location                            = "swedencentral"
+  root_management_group_name          = "alz"
+  resource_group_name                 = "rg-amba-monitoring-001"
+  user_assigned_managed_identity_name = "id-amba-prod-001"
 }
 ```
 
@@ -102,8 +26,6 @@ module "amba_policy" {
 The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.9)
-
-- <a name="requirement_alz"></a> [alz](#requirement\_alz) (~> 0.16)
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.2)
 
@@ -122,69 +44,7 @@ No required inputs.
 
 ## Optional Inputs
 
-The following input variables are optional (have default values):
-
-### <a name="input_action_group_arm_role_id"></a> [action\_group\_arm\_role\_id](#input\_action\_group\_arm\_role\_id)
-
-Description: Action group ARM role ID
-
-Type: `list(string)`
-
-Default: `[]`
-
-### <a name="input_action_group_email"></a> [action\_group\_email](#input\_action\_group\_email)
-
-Description: Action group email
-
-Type: `list(string)`
-
-Default: `[]`
-
-### <a name="input_location"></a> [location](#input\_location)
-
-Description: Location
-
-Type: `string`
-
-Default: `"swedencentral"`
-
-### <a name="input_management_subscription_id"></a> [management\_subscription\_id](#input\_management\_subscription\_id)
-
-Description: Management subscription ID
-
-Type: `string`
-
-Default: `""`
-
-### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
-
-Description: The resource group where the resources will be deployed.
-
-Type: `string`
-
-Default: `"rg-amba-monitoring-001"`
-
-### <a name="input_tags"></a> [tags](#input\_tags)
-
-Description: (Optional) Tags of the resource.
-
-Type: `map(string)`
-
-Default:
-
-```json
-{
-  "_deployed_by_amba": "True"
-}
-```
-
-### <a name="input_user_assigned_managed_identity_name"></a> [user\_assigned\_managed\_identity\_name](#input\_user\_assigned\_managed\_identity\_name)
-
-Description: The name of the user-assigned managed identity.
-
-Type: `string`
-
-Default: `"id-amba-prod-001"`
+No optional inputs.
 
 ## Outputs
 
@@ -196,15 +56,9 @@ The following Modules are called:
 
 ### <a name="module_amba_alz"></a> [amba\_alz](#module\_amba\_alz)
 
-Source: ../../
+Source: git::https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz
 
-Version:
-
-### <a name="module_amba_policy"></a> [amba\_policy](#module\_amba\_policy)
-
-Source: Azure/avm-ptn-alz/azurerm
-
-Version: 0.11.0
+Version: feat-amba-alz
 
 <!-- markdownlint-disable-next-line MD041 -->
 ## Data Collection
