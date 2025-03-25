@@ -8,5 +8,4 @@ module "amba_alz" {
   root_management_group_name          = "alz"
   resource_group_name                 = "rg-amba-monitoring-001"
   user_assigned_managed_identity_name = "id-amba-prod-001"
-  enable_telemetry                    = false
 }

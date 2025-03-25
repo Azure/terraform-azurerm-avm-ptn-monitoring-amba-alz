@@ -14,7 +14,6 @@ module "amba_alz" {
   root_management_group_name          = "alz"
   resource_group_name                 = "rg-amba-monitoring-001"
   user_assigned_managed_identity_name = "id-amba-prod-001"
-  enable_telemetry                    = false
 }
 ```
 
@@ -24,8 +23,6 @@ module "amba_alz" {
 The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.9)
-
-- <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.2)
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 

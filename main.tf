@@ -28,7 +28,7 @@ resource "azapi_resource" "role_assignments" {
       principalType    = "ServicePrincipal"
     }
   }
-  name      = uuid()
+  name      = uuidv5("oid", "${var.role_definition_id}-${var.user_assigned_managed_identity_name}")
   parent_id = "/providers/Microsoft.Management/managementGroups/${var.root_management_group_name}"
   retry = var.retries.role_assignments.error_message_regex != null ? {
     error_message_regex  = var.retries.role_assignments.error_message_regex
