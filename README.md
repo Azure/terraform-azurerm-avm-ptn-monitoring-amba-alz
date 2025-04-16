@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Azure Landing Zones Management Resources AVM Module
+# AMBA ALZ resources module
 
 This module deploys resources for the AMBA Azure Landing Zones pattern. Please review the examples, which provide details on various scenarios.
 
