@@ -1,20 +1,22 @@
 module "resource_group" {
-  source           = "Azure/avm-res-resources-resourcegroup/azurerm"
-  version          = "0.2.1"
+  source  = "Azure/avm-res-resources-resourcegroup/azurerm"
+  version = "0.2.1"
+
   location         = var.location
   name             = var.resource_group_name
-  tags             = var.tags
+  enable_telemetry = var.enable_telemetry
   lock             = var.lock
   role_assignments = var.role_assignments
-  enable_telemetry = var.enable_telemetry
+  tags             = var.tags
 }
 
 module "user_assigned_managed_identity" {
-  source              = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
-  version             = "0.3.3"
+  source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
+  version = "0.3.3"
+
   location            = var.location
-  resource_group_name = module.resource_group.name
   name                = var.user_assigned_managed_identity_name
+  resource_group_name = module.resource_group.name
   enable_telemetry    = var.enable_telemetry
 }
 

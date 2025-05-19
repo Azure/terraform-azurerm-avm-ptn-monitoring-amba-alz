@@ -1,7 +1,10 @@
 <!-- BEGIN_TF_DOCS -->
-# Custom Architecture
+# Custom policy assignments
 
-This example demonstrates how to deploy the AMBA ALZ pattern using an existing custom management group hierarchy.
+It is possible to tailor the Policy Definitions that are deployed and assigned by developing custom archetypes. This example demonstrates a situation where only Service Health is deployed:
+
+- Deploy using a custom management group hierarchy defined by architecture definition file in the local library.
+- Use a custom root archetype to ensure that the Service Health policy definitions and assignments are deployed.
 
 ```hcl
 data "azapi_client_config" "current" {}
@@ -25,22 +28,6 @@ provider "azurerm" {
   features {}
 }
 
-locals {
-  root_management_group_name = jsondecode(file("${path.root}/lib/custom.alz_architecture_definition.json")).management_groups[0].id
-}
-
-module "amba_alz" {
-  source = "../../"
-  providers = {
-    azurerm = azurerm.management
-  }
-
-  location                            = var.location
-  root_management_group_name          = local.root_management_group_name
-  resource_group_name                 = var.resource_group_name
-  user_assigned_managed_identity_name = var.user_assigned_managed_identity_name
-}
-
 module "amba_policy" {
   source  = "Azure/avm-ptn-alz/azurerm"
   version = "0.11.0"
@@ -49,13 +36,10 @@ module "amba_policy" {
   location           = var.location
   parent_resource_id = data.azapi_client_config.current.tenant_id
   policy_default_values = {
-    amba_alz_management_subscription_id          = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
-    amba_alz_resource_group_location             = jsonencode({ value = var.location })
-    amba_alz_resource_group_name                 = jsonencode({ value = var.resource_group_name })
-    amba_alz_resource_group_tags                 = jsonencode({ value = var.tags })
-    amba_alz_user_assigned_managed_identity_name = jsonencode({ value = var.user_assigned_managed_identity_name })
-    amba_alz_action_group_email                  = jsonencode({ value = var.action_group_email })
-    amba_alz_arm_role_id                         = jsonencode({ value = var.action_group_arm_role_id })
+    amba_alz_management_subscription_id = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
+    amba_alz_resource_group_location    = jsonencode({ value = var.location })
+    amba_alz_action_group_email         = jsonencode({ value = var.action_group_email })
+    amba_alz_arm_role_id                = jsonencode({ value = var.action_group_arm_role_id })
   }
 }
 ```
@@ -120,36 +104,6 @@ Type: `string`
 
 Default: `""`
 
-### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
-
-Description: The resource group where the resources will be deployed.
-
-Type: `string`
-
-Default: `"rg-amba-monitoring-001"`
-
-### <a name="input_tags"></a> [tags](#input\_tags)
-
-Description: (Optional) Tags of the resource.
-
-Type: `map(string)`
-
-Default:
-
-```json
-{
-  "_deployed_by_amba": "True"
-}
-```
-
-### <a name="input_user_assigned_managed_identity_name"></a> [user\_assigned\_managed\_identity\_name](#input\_user\_assigned\_managed\_identity\_name)
-
-Description: The name of the user-assigned managed identity.
-
-Type: `string`
-
-Default: `"id-amba-prod-001"`
-
 ## Outputs
 
 No outputs.
@@ -157,12 +111,6 @@ No outputs.
 ## Modules
 
 The following Modules are called:
-
-### <a name="module_amba_alz"></a> [amba\_alz](#module\_amba\_alz)
-
-Source: ../../
-
-Version:
 
 ### <a name="module_amba_policy"></a> [amba\_policy](#module\_amba\_policy)
 
