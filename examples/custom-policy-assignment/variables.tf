@@ -27,6 +27,7 @@ variable "bring_your_own_action_group_resource_id" {
   default     = []
   description = "The resource id of the action group, required if you intend to use an existing action group for monitoring purposes."
 }
+
 variable "event_hub_resource_id" {
   type        = list(string)
   default     = []
