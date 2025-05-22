@@ -32,8 +32,8 @@ module "amba_alz" {
   location                            = var.location
   root_management_group_name          = local.root_management_group_name
   resource_group_name                 = var.resource_group_name
+  tags                                = var.tags
   user_assigned_managed_identity_name = var.user_assigned_managed_identity_name
-  tags = var.tags
 }
 
 module "amba_policy" {
