@@ -32,7 +32,7 @@ module "amba_alz" {
 
 module "amba_policy" {
   source  = "Azure/avm-ptn-alz/azurerm"
-  version = "0.11.0"
+  version = "0.12.0"
 
   architecture_name  = "amba"
   location           = var.location
