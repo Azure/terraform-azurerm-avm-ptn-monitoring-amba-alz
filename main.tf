@@ -21,7 +21,9 @@ module "user_assigned_managed_identity" {
 }
 
 resource "azapi_resource" "role_assignments" {
-  type = "Microsoft.Authorization/roleAssignments@2022-04-01"
+  name      = uuidv5("oid", "${var.role_definition_id}-${var.user_assigned_managed_identity_name}")
+  parent_id = "/providers/Microsoft.Management/managementGroups/${var.root_management_group_name}"
+  type      = "Microsoft.Authorization/roleAssignments@2022-04-01"
   body = {
     properties = {
       principalId      = module.user_assigned_managed_identity.principal_id
@@ -30,8 +32,6 @@ resource "azapi_resource" "role_assignments" {
       principalType    = "ServicePrincipal"
     }
   }
-  name      = uuidv5("oid", "${var.role_definition_id}-${var.user_assigned_managed_identity_name}")
-  parent_id = "/providers/Microsoft.Management/managementGroups/${var.root_management_group_name}"
   retry = var.retries.role_assignments.error_message_regex != null ? {
     error_message_regex  = var.retries.role_assignments.error_message_regex
     interval_seconds     = lookup(var.retries.role_assignments, "interval_seconds", null)
