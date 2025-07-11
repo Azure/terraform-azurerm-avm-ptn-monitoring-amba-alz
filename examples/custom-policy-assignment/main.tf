@@ -5,7 +5,7 @@ provider "alz" {
   library_references = [
     {
       path = "platform/amba"
-      ref  = "2025.06.0"
+      ref  = "2025.07.0"
     },
     {
       custom_url = "${path.root}/lib"
