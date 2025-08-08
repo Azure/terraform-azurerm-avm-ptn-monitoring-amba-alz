@@ -64,4 +64,15 @@ module "amba_policy" {
     amba_alz_byo_alert_processing_rule             = jsonencode({ value = var.bring_your_own_alert_processing_rule_resource_id })
     amba_alz_byo_action_group                      = jsonencode({ value = var.bring_your_own_action_group_resource_id })
   }
+  policy_assignments_to_modify = {
+    (local.root_management_group_name) = {
+      policy_assignments = {
+        Deploy-AMBA-Notification = {
+          parameters = {
+            ALZAlertSeverity = jsonencode({ value = var.alert_severity })
+          }
+        }
+      }
+    }
+  }
 }

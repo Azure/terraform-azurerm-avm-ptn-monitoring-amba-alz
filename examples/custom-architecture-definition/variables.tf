@@ -97,7 +97,7 @@ variable "resource_group_name" {
 variable "tags" {
   type = map(string)
   default = {
-    _deployed_by_amba = "True"
+    _deployed_by_amba = true
   }
   description = "(Optional) Tags of the resource."
 }
@@ -112,4 +112,16 @@ variable "webhook_service_uri" {
   type        = list(string)
   default     = []
   description = "The service URI of the webhook."
+}
+
+variable "alert_severity" {
+  type = list(string)
+  default = [
+    "Sev0",
+    "Sev1",
+    "Sev2",
+    "Sev3",
+    "Sev4"
+  ]
+  description = "Severity levels for alerts notifications to be sent."
 }
