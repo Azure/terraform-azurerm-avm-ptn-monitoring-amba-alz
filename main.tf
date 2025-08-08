@@ -18,6 +18,7 @@ module "user_assigned_managed_identity" {
   name                = var.user_assigned_managed_identity_name
   resource_group_name = module.resource_group.name
   enable_telemetry    = var.enable_telemetry
+  tags                = var.tags
 }
 
 resource "azapi_resource" "role_assignments" {
