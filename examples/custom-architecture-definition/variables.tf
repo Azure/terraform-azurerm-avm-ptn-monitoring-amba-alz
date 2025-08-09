@@ -10,6 +10,18 @@ variable "action_group_email" {
   description = "Action group email"
 }
 
+variable "alert_severity" {
+  type = list(string)
+  default = [
+    "Sev0",
+    "Sev1",
+    "Sev2",
+    "Sev3",
+    "Sev4"
+  ]
+  description = "Severity levels for alerts notifications to be sent."
+}
+
 variable "amba_disable_tag_name" {
   type        = string
   default     = "MonitorDisable"
@@ -112,16 +124,4 @@ variable "webhook_service_uri" {
   type        = list(string)
   default     = []
   description = "The service URI of the webhook."
-}
-
-variable "alert_severity" {
-  type = list(string)
-  default = [
-    "Sev0",
-    "Sev1",
-    "Sev2",
-    "Sev3",
-    "Sev4"
-  ]
-  description = "Severity levels for alerts notifications to be sent."
 }

@@ -44,6 +44,17 @@ module "amba_policy" {
   architecture_name  = "custom"
   location           = var.location
   parent_resource_id = data.azapi_client_config.current.tenant_id
+  policy_assignments_to_modify = {
+    (local.root_management_group_name) = {
+      policy_assignments = {
+        Deploy-AMBA-Notification = {
+          parameters = {
+            ALZAlertSeverity = jsonencode({ value = var.alert_severity })
+          }
+        }
+      }
+    }
+  }
   policy_default_values = {
     amba_alz_management_subscription_id            = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
     amba_alz_resource_group_location               = jsonencode({ value = var.location })
@@ -63,16 +74,5 @@ module "amba_policy" {
     amba_alz_logicapp_callback_url                 = jsonencode({ value = var.logic_app_callback_url })
     amba_alz_byo_alert_processing_rule             = jsonencode({ value = var.bring_your_own_alert_processing_rule_resource_id })
     amba_alz_byo_action_group                      = jsonencode({ value = var.bring_your_own_action_group_resource_id })
-  }
-  policy_assignments_to_modify = {
-    (local.root_management_group_name) = {
-      policy_assignments = {
-        Deploy-AMBA-Notification = {
-          parameters = {
-            ALZAlertSeverity = jsonencode({ value = var.alert_severity })
-          }
-        }
-      }
-    }
   }
 }
