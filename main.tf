@@ -32,6 +32,9 @@ resource "azapi_resource" "role_assignments" {
       principalType    = "ServicePrincipal"
     }
   }
+  create_headers = var.enable_telemetry ? { "User-Agent" : local.avm_azapi_header } : null
+  delete_headers = var.enable_telemetry ? { "User-Agent" : local.avm_azapi_header } : null
+  read_headers   = var.enable_telemetry ? { "User-Agent" : local.avm_azapi_header } : null
   retry = var.retries.role_assignments.error_message_regex != null ? {
     error_message_regex  = var.retries.role_assignments.error_message_regex
     interval_seconds     = lookup(var.retries.role_assignments, "interval_seconds", null)
@@ -39,6 +42,7 @@ resource "azapi_resource" "role_assignments" {
     multiplier           = lookup(var.retries.role_assignments, "multiplier", null)
     randomization_factor = lookup(var.retries.role_assignments, "randomization_factor", null)
   } : null
+  update_headers = var.enable_telemetry ? { "User-Agent" : local.avm_azapi_header } : null
 
   timeouts {
     create = var.timeouts.role_assignment.create
