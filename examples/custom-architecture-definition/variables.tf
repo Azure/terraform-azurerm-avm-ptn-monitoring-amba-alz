@@ -10,6 +10,18 @@ variable "action_group_email" {
   description = "Action group email"
 }
 
+variable "alert_severity" {
+  type = list(string)
+  default = [
+    "Sev0",
+    "Sev1",
+    "Sev2",
+    "Sev3",
+    "Sev4"
+  ]
+  description = "Severity levels for alerts notifications to be sent."
+}
+
 variable "amba_disable_tag_name" {
   type        = string
   default     = "MonitorDisable"
@@ -97,7 +109,7 @@ variable "resource_group_name" {
 variable "tags" {
   type = map(string)
   default = {
-    _deployed_by_amba = "True"
+    _deployed_by_amba = true
   }
   description = "(Optional) Tags of the resource."
 }

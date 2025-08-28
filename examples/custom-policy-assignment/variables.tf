@@ -79,7 +79,7 @@ variable "resource_group_name" {
 variable "tags" {
   type = map(string)
   default = {
-    _deployed_by_amba = "True"
+    _deployed_by_amba = true
   }
   description = "(Optional) Tags of the resource."
 }

@@ -51,6 +51,17 @@ module "amba_policy" {
   architecture_name  = "custom"
   location           = var.location
   parent_resource_id = data.azapi_client_config.current.tenant_id
+  policy_assignments_to_modify = {
+    (local.root_management_group_name) = {
+      policy_assignments = {
+        Deploy-AMBA-Notification = {
+          parameters = {
+            ALZAlertSeverity = jsonencode({ value = var.alert_severity })
+          }
+        }
+      }
+    }
+  }
   policy_default_values = {
     amba_alz_management_subscription_id            = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
     amba_alz_resource_group_location               = jsonencode({ value = var.location })
@@ -117,6 +128,24 @@ Description: Action group email
 Type: `list(string)`
 
 Default: `[]`
+
+### <a name="input_alert_severity"></a> [alert\_severity](#input\_alert\_severity)
+
+Description: Severity levels for alerts notifications to be sent.
+
+Type: `list(string)`
+
+Default:
+
+```json
+[
+  "Sev0",
+  "Sev1",
+  "Sev2",
+  "Sev3",
+  "Sev4"
+]
+```
 
 ### <a name="input_amba_disable_tag_name"></a> [amba\_disable\_tag\_name](#input\_amba\_disable\_tag\_name)
 
@@ -249,7 +278,7 @@ Default:
 
 ```json
 {
-  "_deployed_by_amba": "True"
+  "_deployed_by_amba": true
 }
 ```
 

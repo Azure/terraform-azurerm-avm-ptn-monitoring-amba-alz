@@ -207,7 +207,7 @@ Default:
 
 ```json
 {
-  "_deployed_by_amba": "True"
+  "_deployed_by_amba": true
 }
 ```
 
