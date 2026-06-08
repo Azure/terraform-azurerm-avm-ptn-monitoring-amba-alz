@@ -45,6 +45,9 @@ module "amba_policy" {
   architecture_name  = "amba"
   location           = var.location
   parent_resource_id = data.azapi_client_config.current.tenant_id
+  dependencies = {
+    policy_role_assignments = var.bring_your_own_user_assigned_managed_identity ? [] : [module.amba_alz[0].user_assigned_managed_identity_resource_id]
+  }
   policy_default_values = {
     amba_alz_management_subscription_id            = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
     amba_alz_resource_group_location               = jsonencode({ value = var.location })
@@ -75,6 +78,16 @@ module "amba_policy" {
         functionTriggerUrl  = var.function_trigger_uri
       }
     })
+  }
+  retries = {
+    policy_role_assignments = {
+      error_message_regex = [
+        "AuthorizationFailed",
+        "ResourceNotFound",
+        "RoleAssignmentNotFound",
+        "context deadline exceeded",
+      ]
+    }
   }
 }
 ```
