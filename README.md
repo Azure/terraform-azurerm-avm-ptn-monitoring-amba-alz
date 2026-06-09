@@ -246,13 +246,13 @@ The following Modules are called:
 
 Source: Azure/avm-res-resources-resourcegroup/azurerm
 
-Version: 0.2.1
+Version: 0.4.0
 
 ### <a name="module_user_assigned_managed_identity"></a> [user\_assigned\_managed\_identity](#module\_user\_assigned\_managed\_identity)
 
 Source: Azure/avm-res-managedidentity-userassignedidentity/azurerm
 
-Version: 0.3.3
+Version: 0.5.0
 
 <!-- markdownlint-disable-next-line MD041 -->
 ## Data Collection
