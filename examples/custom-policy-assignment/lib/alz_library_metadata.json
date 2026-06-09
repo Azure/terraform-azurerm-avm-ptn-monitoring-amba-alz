@@ -6,7 +6,7 @@
   "dependencies": [
     {
       "path": "platform/amba",
-      "ref": "2025.07.0"
+      "ref": "2026.01.1"
     }
   ]
 }
