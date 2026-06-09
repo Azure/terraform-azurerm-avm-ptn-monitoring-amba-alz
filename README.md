@@ -123,8 +123,9 @@ Type:
 object({
     role_assignments = optional(object({
       error_message_regex = optional(list(string), [
-        "AuthorizationFailed", # Avoids a eventual consistency issue where a recently created management group is not yet available for a GET operation.
-        "ResourceNotFound",    # If the resource has just been created, retry until it is available.
+        "AuthorizationFailed",       # Avoids a eventual consistency issue where a recently created management group is not yet available for a GET operation.
+        "ResourceNotFound",          # If the resource has just been created, retry until it is available.
+        "context deadline exceeded", # Transient Azure API timeout; retry with a fresh request.
       ])
       interval_seconds     = optional(number, null)
       max_interval_seconds = optional(number, null)
@@ -189,7 +190,7 @@ If using retry, the maximum elapsed retry time is governed by this value.
 
 The object has attributes for each resource type, with the following optional attributes:
 
-- `create` - (Optional) The timeout for creating the resource. Defaults to `5m` apart from policy assignments, where this is set to `15m`.
+- `create` - (Optional) The timeout for creating the resource. Defaults to `10m` for role assignments, `15m` for policy assignments, and `5m` for all other resources.
 - `delete` - (Optional) The timeout for deleting the resource. Defaults to `5m`.
 - `update` - (Optional) The timeout for updating the resource. Defaults to `5m`.
 - `read` - (Optional) The timeout for reading the resource. Defaults to `5m`.
@@ -201,7 +202,7 @@ Type:
 ```hcl
 object({
     role_assignment = optional(object({
-      create = optional(string, "5m")
+      create = optional(string, "10m")
       delete = optional(string, "5m")
       update = optional(string, "5m")
       read   = optional(string, "5m")
