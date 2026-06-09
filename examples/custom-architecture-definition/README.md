@@ -46,7 +46,7 @@ module "amba_alz" {
 
 module "amba_policy" {
   source  = "Azure/avm-ptn-alz/azurerm"
-  version = "0.12.0"
+  version = "0.21.0"
 
   architecture_name  = "custom"
   location           = var.location
@@ -92,7 +92,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.9)
 
-- <a name="requirement_alz"></a> [alz](#requirement\_alz) (~> 0.17.4)
+- <a name="requirement_alz"></a> [alz](#requirement\_alz) (~> 0.21.0)
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.2)
 
@@ -316,7 +316,7 @@ Version:
 
 Source: Azure/avm-ptn-alz/azurerm
 
-Version: 0.12.0
+Version: 0.21.0
 
 <!-- markdownlint-disable-next-line MD041 -->
 ## Data Collection
