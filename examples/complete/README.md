@@ -10,7 +10,7 @@ data "azapi_client_config" "current" {}
 provider "alz" {
   library_references = [{
     path = "platform/amba"
-    ref  = "2025.07.0"
+    ref  = "2026.01.1"
   }]
 }
 
@@ -45,6 +45,9 @@ module "amba_policy" {
   architecture_name  = "amba"
   location           = var.location
   parent_resource_id = data.azapi_client_config.current.tenant_id
+  dependencies = {
+    policy_role_assignments = var.bring_your_own_user_assigned_managed_identity ? [] : [module.amba_alz[0].user_assigned_managed_identity_resource_id]
+  }
   policy_default_values = {
     amba_alz_management_subscription_id            = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
     amba_alz_resource_group_location               = jsonencode({ value = var.location })
@@ -64,6 +67,27 @@ module "amba_policy" {
     amba_alz_logicapp_callback_url                 = jsonencode({ value = var.logic_app_callback_url })
     amba_alz_byo_alert_processing_rule             = jsonencode({ value = var.bring_your_own_alert_processing_rule_resource_id })
     amba_alz_byo_action_group                      = jsonencode({ value = var.bring_your_own_action_group_resource_id })
+    amba_alz_sha_action_group_resources = jsonencode({
+      value = {
+        actionGroupEmail    = var.action_group_email
+        logicappResourceId  = var.logic_app_resource_id
+        logicappCallbackUrl = var.logic_app_callback_url
+        eventHubResourceId  = var.event_hub_resource_id
+        webhookServiceUri   = var.webhook_service_uri
+        functionResourceId  = var.function_resource_id
+        functionTriggerUrl  = var.function_trigger_uri
+      }
+    })
+  }
+  retries = {
+    policy_role_assignments = {
+      error_message_regex = [
+        "AuthorizationFailed",
+        "ResourceNotFound",
+        "RoleAssignmentNotFound",
+        "context deadline exceeded",
+      ]
+    }
   }
 }
 ```
