@@ -42,10 +42,10 @@ module "amba_policy" {
   source  = "Azure/avm-ptn-alz/azurerm"
   version = "0.21.0"
 
-  architecture_name                    = "amba"
-  location                             = var.location
-  parent_resource_id                   = data.azapi_client_config.current.tenant_id
-  policy_role_assignments_dependencies = var.bring_your_own_user_assigned_managed_identity ? [] : [module.amba_alz[0].user_assigned_managed_identity_resource_id]
+  architecture_name               = "amba"
+  location                        = var.location
+  parent_resource_id              = data.azapi_client_config.current.tenant_id
+  policy_assignments_dependencies = var.bring_your_own_user_assigned_managed_identity ? [] : [module.amba_alz[0].user_assigned_managed_identity_resource_id]
   policy_default_values = {
     amba_alz_management_subscription_id            = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
     amba_alz_resource_group_location               = jsonencode({ value = var.location })
