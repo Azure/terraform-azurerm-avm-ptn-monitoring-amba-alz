@@ -1,0 +1,92 @@
+{
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2020-09-01",
+  "name": "Deploy-AMBA-Web",
+  "location": "${default_location}",
+  "dependsOn": [],
+  "identity": {
+    "type": "SystemAssigned"
+  },
+  "properties": {
+    "description": "This initiative deploys Azure Monitor Baseline Alerts (AMBA-ALZ) to monitor Web Services such as App Services.",
+    "displayName": "Deploy Azure Monitor Baseline Alerts (AMBA-ALZ) for Web",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/placeholder/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Web",
+    "enforcementMode": "Default",
+    "nonComplianceMessages": [
+      {
+        "message": "Alerting {enforcementMode} be deployed to Azure services."
+      }
+    ],
+    "notScopes": [],
+    "parameters": {
+      "ALZManagementSubscriptionId": {
+        "value": ""
+      },
+      "ALZMonitorDisableTagName": {
+        "value": "MonitorDisable"
+      },
+      "ALZMonitorDisableTagValues": {
+        "value": [
+          "true",
+          "Test",
+          "Dev",
+          "Sandbox"
+        ]
+      },
+      "ALZMonitorResourceGroupLocation": {
+        "value": "eastus"
+      },
+      "ALZMonitorResourceGroupName": {
+        "value": "rg-amba-alz-prod-001"
+      },
+      "ALZMonitorResourceGroupTags": {
+        "value": {
+          "_deployed_by_alz_monitor": true
+        }
+      },
+      "ALZUserAssignedManagedIdentityName": {
+        "value": "id-amba-alz-arg-reader-prod-001"
+      },
+      "AppInsightsThrottlingLimitPolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "AppInsightsThrottlingLimitcheckWorkspaceAlertsStorageConfigured": {
+        "value": "false"
+      },
+      "BYOUserAssignedManagedIdentityResourceId": {
+        "value": ""
+      },
+      "LAWDailyCapLimitPolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "LAWDailyCapLimitcheckWorkspaceAlertsStorageConfigured": {
+        "value": "false"
+      },
+      "WSFCPUPercentagePolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "WSFDiskQueueLengthPolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "WSFHttpQueueLengthPolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "WSFMemoryPercentagePolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "activityAppInsightsDeletePolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "activityLAWDeletePolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "activityLAWKeyRegenPolicyEffect": {
+        "value": "deployIfNotExists"
+      }
+    },
+    "metadata": {
+      "_deployed_by_amba": true
+    },
+    "scope": "/providers/Microsoft.Management/managementGroups/placeholder"
+  }
+}

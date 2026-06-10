@@ -1,0 +1,86 @@
+{
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2020-09-01",
+  "name": "Deploy-AMBA-Management",
+  "location": "${default_location}",
+  "dependsOn": [],
+  "identity": {
+    "type": "SystemAssigned"
+  },
+  "properties": {
+    "description": "This initiative deploys Azure Monitor Baseline Alerts (AMBA-ALZ) to monitor the management resources including Automation Account, Storage Account, Recovery Vault, and Log Analytics Workspace",
+    "displayName": "Deploy Azure Monitor Baseline Alerts (AMBA-ALZ) for Management",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/placeholder/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Management",
+    "enforcementMode": "Default",
+    "nonComplianceMessages": [
+      {
+        "message": "Alerting {enforcementMode} be deployed to Azure services."
+      }
+    ],
+    "notScopes": [],
+    "parameters": {
+      "AATotalJobAlertPolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "ALZManagementSubscriptionId": {
+        "value": ""
+      },
+      "ALZMonitorDisableTagName": {
+        "value": "MonitorDisable"
+      },
+      "ALZMonitorDisableTagValues": {
+        "value": [
+          "true",
+          "Test",
+          "Dev",
+          "Sandbox"
+        ]
+      },
+      "ALZMonitorResourceGroupLocation": {
+        "value": "eastus"
+      },
+      "ALZMonitorResourceGroupName": {
+        "value": "rg-amba-alz-prod-001"
+      },
+      "ALZMonitorResourceGroupTags": {
+        "value": {
+          "_deployed_by_alz_monitor": true
+        }
+      },
+      "ALZUserAssignedManagedIdentityName": {
+        "value": "id-amba-alz-arg-reader-prod-001"
+      },
+      "BYOUserAssignedManagedIdentityResourceId": {
+        "value": ""
+      },
+      "LAWDailyCapLimitPolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "LAWDailyCapLimitcheckWorkspaceAlertsStorageConfigured": {
+        "value": "false"
+      },
+      "RVASRHealthMonitorPolicyEffect": {
+        "value": "modify"
+      },
+      "RVBackupHealthMonitorPolicyEffect": {
+        "value": "modify"
+      },
+      "StorageAccountAvailabilityPolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "StorageAccountDeletePolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "activityLAWDeletePolicyEffect": {
+        "value": "deployIfNotExists"
+      },
+      "activityLAWKeyRegenPolicyEffect": {
+        "value": "deployIfNotExists"
+      }
+    },
+    "metadata": {
+      "_deployed_by_amba": true
+    },
+    "scope": "/providers/Microsoft.Management/managementGroups/placeholder"
+  }
+}
