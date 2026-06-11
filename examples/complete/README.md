@@ -10,7 +10,7 @@ data "azapi_client_config" "current" {}
 provider "alz" {
   library_references = [{
     path = "platform/amba"
-    ref  = "2026.01.1"
+    ref  = "2026.06.2"
   }]
 }
 
