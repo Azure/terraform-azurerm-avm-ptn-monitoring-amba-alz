@@ -5,7 +5,7 @@ provider "alz" {
   library_references = [
     {
       path = "platform/amba"
-      ref  = "2026.01.1"
+      ref  = "2026.06.2"
     },
     {
       custom_url = "${path.root}/lib"
@@ -39,11 +39,12 @@ module "amba_alz" {
 
 module "amba_policy" {
   source  = "Azure/avm-ptn-alz/azurerm"
-  version = "0.12.0"
+  version = "0.21.0"
 
-  architecture_name  = "custom"
-  location           = var.location
-  parent_resource_id = data.azapi_client_config.current.tenant_id
+  architecture_name               = "custom"
+  location                        = var.location
+  parent_resource_id              = data.azapi_client_config.current.tenant_id
+  policy_assignments_dependencies = var.bring_your_own_user_assigned_managed_identity ? [] : [module.amba_alz[0].user_assigned_managed_identity_resource_id]
   policy_assignments_to_modify = {
     (local.root_management_group_name) = {
       policy_assignments = {
