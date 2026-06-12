@@ -12,7 +12,7 @@ provider "alz" {
   library_references = [
     {
       path = "platform/amba"
-      ref  = "2026.01.1"
+      ref  = "2026.06.2"
     },
     {
       custom_url = "${path.root}/lib"
@@ -46,11 +46,12 @@ module "amba_alz" {
 
 module "amba_policy" {
   source  = "Azure/avm-ptn-alz/azurerm"
-  version = "0.12.0"
+  version = "0.21.0"
 
-  architecture_name  = "custom"
-  location           = var.location
-  parent_resource_id = data.azapi_client_config.current.tenant_id
+  architecture_name               = "custom"
+  location                        = var.location
+  parent_resource_id              = data.azapi_client_config.current.tenant_id
+  policy_assignments_dependencies = var.bring_your_own_user_assigned_managed_identity ? [] : [module.amba_alz[0].user_assigned_managed_identity_resource_id]
   policy_assignments_to_modify = {
     (local.root_management_group_name) = {
       policy_assignments = {
@@ -103,7 +104,7 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.9)
 
-- <a name="requirement_alz"></a> [alz](#requirement\_alz) (~> 0.17.4)
+- <a name="requirement_alz"></a> [alz](#requirement\_alz) (~> 0.21.0)
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.2)
 
@@ -327,7 +328,7 @@ Version:
 
 Source: Azure/avm-ptn-alz/azurerm
 
-Version: 0.12.0
+Version: 0.21.0
 
 <!-- markdownlint-disable-next-line MD041 -->
 ## Data Collection
