@@ -1,5 +1,6 @@
 # tflint-ignore: terraform_unused_declarations
 
+
 variable "location" {
   type        = string
   description = "Azure region where the resource should be deployed."
