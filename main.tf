@@ -12,7 +12,7 @@ module "resource_group" {
 
 module "user_assigned_managed_identity" {
   source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
-  version = "0.5.0"
+  version = "0.5.1"
 
   location            = var.location
   name                = var.user_assigned_managed_identity_name
