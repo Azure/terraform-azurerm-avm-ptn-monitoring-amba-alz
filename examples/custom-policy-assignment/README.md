@@ -23,12 +23,6 @@ provider "alz" {
   ]
 }
 
-provider "azurerm" {
-  alias           = "management"
-  subscription_id = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id
-  features {}
-}
-
 module "amba_policy" {
   source  = "Azure/avm-ptn-alz/azurerm"
   version = "0.21.0"
