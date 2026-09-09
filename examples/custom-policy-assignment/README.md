@@ -23,12 +23,6 @@ provider "alz" {
   ]
 }
 
-provider "azurerm" {
-  alias           = "management"
-  subscription_id = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id
-  features {}
-}
-
 module "amba_policy" {
   source  = "Azure/avm-ptn-alz/azurerm"
   version = "0.21.0"
@@ -77,8 +71,6 @@ The following requirements are needed by this module:
 - <a name="requirement_alz"></a> [alz](#requirement\_alz) (~> 0.21.0)
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.2)
-
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
 ## Resources
 
