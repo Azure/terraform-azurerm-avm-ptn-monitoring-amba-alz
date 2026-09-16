@@ -6,9 +6,9 @@
       "archetypes": [
         "amba_root"
       ],
-      "display_name": "AMBA root",
+      "display_name": "Azure Landing Zones",
       "exists": true,
-      "id": "contoso",
+      "id": "alz",
       "parent_id": null
     },
     {
@@ -17,17 +17,17 @@
       ],
       "display_name": "Platform",
       "exists": true,
-      "id": "contoso-platform",
-      "parent_id": "contoso"
+      "id": "platform",
+      "parent_id": "alz"
     },
     {
       "archetypes": [
         "amba_landing_zones"
       ],
-      "display_name": "Landing zones",
+      "display_name": "Landing Zones",
       "exists": true,
-      "id": "contoso-landingzones",
-      "parent_id": "contoso"
+      "id": "landingzones",
+      "parent_id": "alz"
     },
     {
       "archetypes": [
@@ -35,8 +35,8 @@
       ],
       "display_name": "Management",
       "exists": true,
-      "id": "contoso-management",
-      "parent_id": "contoso-platform"
+      "id": "management",
+      "parent_id": "platform"
     },
     {
       "archetypes": [
@@ -44,8 +44,8 @@
       ],
       "display_name": "Connectivity",
       "exists": true,
-      "id": "contoso-connectivity",
-      "parent_id": "contoso-platform"
+      "id": "connectivity",
+      "parent_id": "platform"
     },
     {
       "archetypes": [
@@ -53,8 +53,8 @@
       ],
       "display_name": "Identity",
       "exists": true,
-      "id": "contoso-identity",
-      "parent_id": "contoso-platform"
+      "id": "identity",
+      "parent_id": "platform"
     }
   ]
 }
