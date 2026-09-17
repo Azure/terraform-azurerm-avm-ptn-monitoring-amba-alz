@@ -32,6 +32,7 @@ module "amba_alz" {
 
   location                            = var.location
   root_management_group_name          = local.root_management_group_name
+  enable_telemetry                    = false
   resource_group_name                 = var.resource_group_name
   tags                                = var.tags
   user_assigned_managed_identity_name = var.user_assigned_managed_identity_name
@@ -44,6 +45,7 @@ module "amba_policy" {
   architecture_name               = "custom"
   location                        = var.location
   parent_resource_id              = data.azapi_client_config.current.tenant_id
+  enable_telemetry                = false
   policy_assignments_dependencies = var.bring_your_own_user_assigned_managed_identity ? [] : [module.amba_alz[0].user_assigned_managed_identity_resource_id]
   policy_assignments_to_modify = {
     (local.root_management_group_name) = {
