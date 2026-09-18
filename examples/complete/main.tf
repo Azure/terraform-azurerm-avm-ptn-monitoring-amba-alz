@@ -13,6 +13,11 @@ provider "azurerm" {
   features {}
 }
 
+provider "azapi" {
+  alias           = "management"
+  subscription_id = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id
+}
+
 locals {
   root_management_group_name = "alz"
 }
@@ -21,6 +26,7 @@ module "amba_alz" {
   source = "../../"
   providers = {
     azurerm = azurerm.management
+    azapi   = azapi.management
   }
   count = var.bring_your_own_user_assigned_managed_identity ? 0 : 1
 
