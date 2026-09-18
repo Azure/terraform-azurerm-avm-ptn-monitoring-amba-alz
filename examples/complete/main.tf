@@ -26,7 +26,7 @@ module "amba_alz" {
 
   location                            = var.location
   root_management_group_name          = local.root_management_group_name
-  enable_telemetry                    = false
+  enable_telemetry                    = var.enable_telemetry
   resource_group_name                 = var.resource_group_name
   tags                                = var.tags
   user_assigned_managed_identity_name = var.user_assigned_managed_identity_name
@@ -39,7 +39,7 @@ module "amba_policy" {
   architecture_name               = "amba"
   location                        = var.location
   parent_resource_id              = data.azapi_client_config.current.tenant_id
-  enable_telemetry                = false
+  enable_telemetry                = var.enable_telemetry
   policy_assignments_dependencies = var.bring_your_own_user_assigned_managed_identity ? [] : [module.amba_alz[0].user_assigned_managed_identity_resource_id]
   policy_default_values = {
     amba_alz_management_subscription_id            = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })

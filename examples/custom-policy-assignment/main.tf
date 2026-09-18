@@ -26,7 +26,7 @@ module "amba_policy" {
   architecture_name  = "custom"
   location           = var.location
   parent_resource_id = data.azapi_client_config.current.tenant_id
-  enable_telemetry   = false
+  enable_telemetry   = var.enable_telemetry
   policy_default_values = {
     amba_alz_management_subscription_id = jsonencode({ value = var.management_subscription_id != "" ? var.management_subscription_id : data.azapi_client_config.current.subscription_id })
     amba_alz_resource_group_location    = jsonencode({ value = var.location })
