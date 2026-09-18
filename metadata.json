@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-verified-modules-tools/main/src/Avm.Authoring/Resources/Schemas/v1/avm-module-metadata.schema.json",
+  "moduleDisplayName": "AMBA ALZ Pattern",
+  "moduleDescription": "AVM Pattern Module for AMBA ALZ Pattern",
+  "canonicalType": "monitoring/amba-alz",
+  "owners": [
+    "arjenhuitema",
+    "Brunoga-MS"
+  ],
+  "telemetryIdPrefix": "46d3xtrf.ptn.b16b3b0"
+}
