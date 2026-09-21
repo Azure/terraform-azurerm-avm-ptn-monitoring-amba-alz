@@ -7,5 +7,8 @@
     "arjenhuitema",
     "Brunoga-MS"
   ],
-  "telemetryIdPrefix": "46d3xtrf.ptn.b16b3b0"
+  "telemetryIdPrefix": "46d3xtrf.ptn.b16b3b0",
+  "alternativeNames": [
+    "Azure Monitor Baseline Alerts - Azure Landing Zones Pattern"
+  ]
 }
