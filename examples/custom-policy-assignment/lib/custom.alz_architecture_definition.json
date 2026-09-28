@@ -6,9 +6,9 @@
       "archetypes": [
         "amba_root"
       ],
-      "display_name": "AMBA root",
+      "display_name": "Azure Landing Zones",
       "exists": true,
-      "id": "contoso",
+      "id": "alz",
       "parent_id": null
     }
   ]
