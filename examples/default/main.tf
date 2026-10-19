@@ -3,12 +3,13 @@ provider "azurerm" {
 }
 
 module "naming" {
-  source  = "Azure/naming/azurerm"
-  version = "0.4.4"
+  source  = "Azure/avm-utl-naming/azure"
+  version = "0.2.0"
 }
 
 module "amba_alz" {
-  source = "../../"
+  source    = "../../"
+  providers = { modtm = modtm }
 
   location                            = "swedencentral"
   root_management_group_name          = "alz"
