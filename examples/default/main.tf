@@ -8,8 +8,7 @@ module "naming" {
 }
 
 module "amba_alz" {
-  source    = "../../"
-  providers = { modtm = modtm }
+  source = "../../"
 
   location                            = "swedencentral"
   root_management_group_name          = "alz"
