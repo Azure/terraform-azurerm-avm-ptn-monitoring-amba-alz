@@ -53,9 +53,8 @@ module "amba_alz" {
 }
 
 module "amba_policy" {
-  source    = "Azure/avm-ptn-alz/azurerm"
-  version   = "0.21.0"
-  providers = { modtm = modtm }
+  source  = "Azure/avm-ptn-alz/azurerm"
+  version = "0.21.0"
 
   architecture_name               = "custom"
   location                        = var.location

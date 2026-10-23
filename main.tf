@@ -1,7 +1,6 @@
 module "resource_group" {
-  source    = "Azure/avm-res-resources-resourcegroup/azurerm"
-  version   = "0.4.0"
-  providers = { modtm = modtm }
+  source  = "Azure/avm-res-resources-resourcegroup/azurerm"
+  version = "0.4.0"
 
   location         = var.location
   name             = var.resource_group_name
@@ -12,9 +11,8 @@ module "resource_group" {
 }
 
 module "user_assigned_managed_identity" {
-  source    = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
-  version   = "0.5.3"
-  providers = { modtm = modtm }
+  source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
+  version = "0.5.3"
 
   location            = var.location
   name                = var.user_assigned_managed_identity_name
