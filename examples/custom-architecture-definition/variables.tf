@@ -58,6 +58,16 @@ variable "bring_your_own_user_assigned_managed_identity_resource_id" {
   description = "The resource ID of the user-assigned managed identity."
 }
 
+variable "enable_telemetry" {
+  type        = bool
+  default     = true
+  description = <<DESCRIPTION
+This variable controls whether or not telemetry is enabled for the module.
+For more information see <https://aka.ms/avm/telemetryinfo>.
+If it is set to false, then no telemetry will be collected.
+DESCRIPTION
+}
+
 variable "event_hub_resource_id" {
   type        = list(string)
   default     = []
@@ -124,14 +134,4 @@ variable "webhook_service_uri" {
   type        = list(string)
   default     = []
   description = "The service URI of the webhook."
-}
-
-variable "enable_telemetry" {
-  type        = bool
-  default     = true
-  description = <<DESCRIPTION
-This variable controls whether or not telemetry is enabled for the module.
-For more information see <https://aka.ms/avm/telemetryinfo>.
-If it is set to false, then no telemetry will be collected.
-DESCRIPTION
 }
