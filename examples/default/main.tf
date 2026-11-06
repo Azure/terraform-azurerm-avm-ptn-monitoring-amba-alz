@@ -13,6 +13,6 @@ module "amba_alz" {
   location                            = "swedencentral"
   root_management_group_name          = "alz"
   enable_telemetry                    = var.enable_telemetry
-  resource_group_name                 = module.naming.resource_group.name_unique
-  user_assigned_managed_identity_name = module.naming.user_assigned_identity.name_unique
+  resource_group_name                 = module.naming.names.resource_group.name_unique
+  user_assigned_managed_identity_name = module.naming.names.user_assigned_identity.name_unique
 }

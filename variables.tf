@@ -85,6 +85,7 @@ DESCRIPTION
 
 variable "role_assignments" {
   type = map(object({
+    name                                   = optional(string, null)
     role_definition_id_or_name             = string
     principal_id                           = string
     description                            = optional(string, null)
@@ -98,6 +99,7 @@ variable "role_assignments" {
   description = <<DESCRIPTION
 A map of role assignments to create on the resource group. The map key is deliberately arbitrary to avoid issues where map keys maybe unknown at plan time.
 
+- `name` - (Optional) The lowercase role assignment GUID. If omitted, a random UUID is generated. Changing it forces a new resource.
 - `role_definition_id_or_name` - The ID or name of the role definition to assign to the principal.
 - `principal_id` - The ID of the principal to assign the role to.
 - `description` - The description of the role assignment.

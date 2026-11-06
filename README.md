@@ -15,6 +15,15 @@ This module deploys resources for the AMBA Azure Landing Zones pattern. Please r
 We use the AzAPI provider to interact with the Azure APIs.
 The new features allow us to be more efficient and reliable, with orders of magnitude speed improvements and retry logic for transient errors.
 
+## Upgrading from 0.4.0
+
+- The managed identity module now requires AzureRM `>= 4.60.0, < 5.0.0`, and this module requires AzAPI `~> 2.12`. Check provider constraints and the dependency lock file before upgrading.
+- When telemetry is enabled, this module and its referenced resource group, interfaces, and managed identity modules create empty subscription-scope deployments through their AzAPI provider. The identity running Terraform needs permission to manage deployments at that subscription scope, and deployment history and subsequent plans can change. Set `enable_telemetry = false` to disable telemetry in this module and its referenced modules.
+- The previous telemetry resources in this module and its referenced modules have `removed` blocks with `destroy = false`. Back up your state and review the upgrade plan, including the handling of the old telemetry resources and any workload changes, before applying. Historical-state migration has not been validated.
+- Remove any `modtm` mapping from this module's `providers` argument; the module no longer declares that provider, and forwarding it can cause a provider type mismatch. Older state may still require the original ModTM provider configuration until Terraform has processed the removed telemetry resource.
+- For resource group role assignments created by older AzureRM-based versions, set each `role_assignments` entry's `name` to its existing assignment GUID in lowercase to avoid replacing it. This field was previously ignored by this module; remove it if an existing value should not become effective.
+- Review resource group locks and existing lock notes in the plan: the updated resource group module sends `notes = null`, and its effect on existing notes has not been verified. The resource group's `ignore_tag_changes` remains at its default `false`; changing that setting in the resource group module can replace the group.
+
 ## Multi-Subscription Deployments
 
 If you deploy this module into a subscription other than the one selected by your default provider configuration (for example, using an aliased `azurerm` provider), you **must** also pass an aliased `azapi` provider configured for the same subscription. Terraform disables automatic provider inheritance for *all* providers on a module call as soon as a `providers` argument is specified, so omitting `azapi` from that map causes the module's internal `azapi` resources (such as the resource group) to fall back to the default/unaliased `azapi` provider's subscription context, which can result in an empty or incorrect subscription ID.
@@ -53,8 +62,6 @@ The following requirements are needed by this module:
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.12)
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
-
-- <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
 
 ## Resources
 
@@ -166,6 +173,7 @@ Default: `{}`
 
 Description: A map of role assignments to create on the resource group. The map key is deliberately arbitrary to avoid issues where map keys maybe unknown at plan time.
 
+- `name` - (Optional) The lowercase role assignment GUID. If omitted, a random UUID is generated. Changing it forces a new resource.
 - `role_definition_id_or_name` - The ID or name of the role definition to assign to the principal.
 - `principal_id` - The ID of the principal to assign the role to.
 - `description` - The description of the role assignment.
@@ -179,6 +187,7 @@ Type:
 
 ```hcl
 map(object({
+    name                                   = optional(string, null)
     role_definition_id_or_name             = string
     principal_id                           = string
     description                            = optional(string, null)
@@ -274,13 +283,13 @@ The following Modules are called:
 
 Source: Azure/avm-res-resources-resourcegroup/azurerm
 
-Version: 0.4.0
+Version: 0.5.0
 
 ### <a name="module_user_assigned_managed_identity"></a> [user\_assigned\_managed\_identity](#module\_user\_assigned\_managed\_identity)
 
 Source: Azure/avm-res-managedidentity-userassignedidentity/azurerm
 
-Version: 0.5.3
+Version: 0.6.0
 
 <!-- markdownlint-disable-next-line MD041 -->
 ## Data Collection

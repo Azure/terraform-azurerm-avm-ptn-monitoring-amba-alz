@@ -20,8 +20,8 @@ module "amba_alz" {
   location                            = "swedencentral"
   root_management_group_name          = "alz"
   enable_telemetry                    = var.enable_telemetry
-  resource_group_name                 = module.naming.resource_group.name_unique
-  user_assigned_managed_identity_name = module.naming.user_assigned_identity.name_unique
+  resource_group_name                 = module.naming.names.resource_group.name_unique
+  user_assigned_managed_identity_name = module.naming.names.user_assigned_identity.name_unique
 }
 ```
 
@@ -33,8 +33,6 @@ The following requirements are needed by this module:
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.9)
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
-
-- <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
 
 ## Resources
 
