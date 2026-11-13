@@ -25,7 +25,7 @@ provider "alz" {
 
 module "amba_policy" {
   source  = "Azure/avm-ptn-alz/azurerm"
-  version = "0.21.0"
+  version = "0.22.0"
 
   architecture_name  = "custom"
   location           = var.location
@@ -245,7 +245,7 @@ The following Modules are called:
 
 Source: Azure/avm-ptn-alz/azurerm
 
-Version: 0.21.0
+Version: 0.22.0
 
 <!-- markdownlint-disable-next-line MD041 -->
 ## Data Collection
