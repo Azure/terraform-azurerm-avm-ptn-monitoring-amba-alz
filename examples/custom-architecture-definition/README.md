@@ -40,6 +40,7 @@ module "amba_alz" {
   providers = {
     azurerm = azurerm.management
     azapi   = azapi.management
+
   }
   count = var.bring_your_own_user_assigned_managed_identity ? 0 : 1
 
